@@ -96,6 +96,7 @@
         },
         "price_6TWJwE": {
           "type": "price",
+          "disabled": true,
           "settings": {
             "show_taxes_notice": false
           }
