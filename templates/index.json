@@ -158,6 +158,29 @@
         "quote_aCy8w7": {
           "type": "quote",
           "settings": {
+            "logo": "shopify://shop_images/Le_Monde_svg.avif",
+            "logo_width": 100,
+            "author": "",
+            "content": "Write some content about what they says about your store.",
+            "show_rating": false,
+            "rating": 4
+          }
+        },
+        "quote_9KqhTh": {
+          "type": "quote",
+          "settings": {
+            "logo": "shopify://shop_images/Franceinfo_svg.avif",
+            "logo_width": 100,
+            "author": "",
+            "content": "Write some content about what they says about your store.",
+            "show_rating": false,
+            "rating": 4
+          }
+        },
+        "quote_kxeaJ3": {
+          "type": "quote",
+          "settings": {
+            "logo": "shopify://shop_images/images.avif",
             "logo_width": 100,
             "author": "",
             "content": "Write some content about what they says about your store.",
@@ -167,7 +190,9 @@
         }
       },
       "block_order": [
-        "quote_aCy8w7"
+        "quote_aCy8w7",
+        "quote_9KqhTh",
+        "quote_kxeaJ3"
       ],
       "name": "Press",
       "settings": {
