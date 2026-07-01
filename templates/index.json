@@ -101,8 +101,8 @@
           "settings": {
             "icon": "none",
             "icon_width": 20,
-            "title": "Title",
-            "content": "<p>Share some content to your customers about your products.</p>",
+            "title": "Que contient le kit ?",
+            "content": "<p><strong>Votre Kit de démarrage Puure® comprend :</strong></p><p>✔ 1x Système de filtration Puure® 3.0 (acier inoxydable 304 qualité médicale)</p><p>✔ 2x Cartouches Puure® 3.0 (6 mois d'autonomie)</p><p>✔ 3x Adaptateurs universels (compatible 99 % des robinets)</p><p>✔ 1x Guide d'installation</p><p>✔ 1x Carte de rappel de remplacement de cartouche</p>",
             "page": ""
           }
         }
