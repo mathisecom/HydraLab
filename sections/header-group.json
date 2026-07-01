@@ -17,7 +17,7 @@
         "message": {
           "type": "message",
           "settings": {
-            "text": "Announce something here",
+            "text": "LIVRAISON OFFERTE EN FRANCE",
             "url": ""
           }
         }
@@ -32,7 +32,7 @@
         "text_size": "text-xs",
         "navigation_mode": "scrolling",
         "scrolling_speed": 10,
-        "background": "#08163D",
+        "background": "#08163d",
         "background_gradient": "",
         "text_color": "#ffffff"
       }
@@ -43,8 +43,8 @@
         "enable_sticky": true,
         "hide_on_scroll": false,
         "logo": "shopify://shop_images/LogoHydraLab.png",
-        "logo_max_width": 120,
-        "logo_mobile_max_width": 120,
+        "logo_max_width": 140,
+        "logo_mobile_max_width": 130,
         "menu": "main-menu",
         "sidebar_menu": "",
         "secondary_menu": "",
