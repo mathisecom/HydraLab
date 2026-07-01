@@ -102,7 +102,17 @@
             "icon": "none",
             "icon_width": 20,
             "title": "Que contient le kit ?",
-            "content": "<p><strong>Votre Kit de démarrage Puure® comprend :</strong></p><p>✔ 1x Système de filtration Puure® 3.0 (acier inoxydable 304 qualité médicale)</p><p>✔ 2x Cartouches Puure® 3.0 (6 mois d'autonomie)</p><p>✔ 3x Adaptateurs universels (compatible 99 % des robinets)</p><p>✔ 1x Guide d'installation</p><p>✔ 1x Carte de rappel de remplacement de cartouche</p>",
+            "content": "<p><strong>Votre Kit de démarrage HydraLab® comprend :</strong></p><p>✔ 1x Système de filtration <strong>HydraLab</strong>® 3.0 (acier inoxydable 304 qualité médicale)</p><p>✔ 2x Cartouches <strong>HydraLab</strong>® 3.0 (6 mois d'autonomie)</p><p>✔ 3x Adaptateurs universels (compatible 99 % des robinets)</p><p>✔ 1x Guide d'installation</p><p>✔ 1x Carte de rappel de remplacement de cartouche</p>",
+            "page": ""
+          }
+        },
+        "collapsible_text_U86xyB": {
+          "type": "collapsible_text",
+          "settings": {
+            "icon": "none",
+            "icon_width": 20,
+            "title": "L'installation est-elle facile ?",
+            "content": "<p><strong>Oui — environ 30 secondes, sans aucun outil.</strong></p><p>Dévissez simplement l'aérateur de votre robinet, vissez l'adaptateur <strong>HydraLab®</strong>, puis clipsez le système de filtration. C'est tout.</p><p>Compatible avec 99 % des robinets standards équipés d'un aérateur amovible. Votre kit comprend 3 tailles d'adaptateur pour un ajustement parfait.</p>",
             "page": ""
           }
         }
@@ -120,7 +130,8 @@
         "buy_buttons_ECjbfQ",
         "liquid_LfFxkj",
         "collapsible_text_APMfz7",
-        "collapsible_text_kTcYW6"
+        "collapsible_text_kTcYW6",
+        "collapsible_text_U86xyB"
       ],
       "name": "Featured product",
       "settings": {
