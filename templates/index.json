@@ -152,6 +152,36 @@
         "input_text_color": ""
       }
     },
+    "press_76EqBc": {
+      "type": "press",
+      "blocks": {
+        "quote_aCy8w7": {
+          "type": "quote",
+          "settings": {
+            "logo_width": 100,
+            "author": "",
+            "content": "Write some content about what they says about your store.",
+            "show_rating": false,
+            "rating": 4
+          }
+        }
+      },
+      "block_order": [
+        "quote_aCy8w7"
+      ],
+      "name": "Press",
+      "settings": {
+        "full_width": true,
+        "content_size": "medium",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "logo_item_background": "",
+        "logo_item_border": ""
+      }
+    },
     "faq": {
       "type": "faq",
       "blocks": {
@@ -208,6 +238,7 @@
   },
   "order": [
     "featured_product_nT99RK",
+    "press_76EqBc",
     "faq"
   ]
 }
