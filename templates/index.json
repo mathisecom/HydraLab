@@ -12,10 +12,22 @@
     "featured_product_nT99RK": {
       "type": "featured-product",
       "blocks": {
+        "liquid_tUq6LH": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<div class=\"product-info__block-item\" data-block-id=\"liquid_fUHP9h\" data-block-type=\"liquid\"><div class=\"product-info__liquid\">\n              <div class=\"pureva-mini-rating\">\n  <div class=\"pureva-mini-stars\" aria-label=\"5 étoiles sur 5\">\n    <span>★</span>\n    <span>★</span>\n    <span>★</span>\n    <span>★</span>\n    <span>★</span>\n  </div>\n\n  <div class=\"pureva-mini-rating-text\">\n    <strong>40,000</strong> Utilisateurs Conquis\n  </div>\n</div>\n\n<style>\n  .pureva-mini-rating {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    font-family: 'Instrument Sans', Arial, Helvetica, sans-serif;\n    color: #000000;\n    margin: 0;\n    padding: 0;\n    line-height: 1;\n  }\n\n  .pureva-mini-stars {\n    display: flex;\n    align-items: center;\n    gap: 1px;\n    color: #00b67a;\n    font-size: 22px;\n    line-height: 1;\n    letter-spacing: -1px;\n  }\n\n  .pureva-mini-stars span {\n    display: inline-block;\n    line-height: 1;\n  }\n\n  .pureva-mini-rating-text {\n    font-size: 13px;\n    line-height: 1;\n    font-weight: 400;\n    color: #000000;\n    white-space: nowrap;\n  }\n\n  .pureva-mini-rating-text strong {\n    font-weight: 700;\n  }\n\n  @media screen and (max-width: 749px) {\n    .pureva-mini-rating {\n      gap: 7px;\n    }\n\n    .pureva-mini-stars {\n      font-size: 21px;\n    }\n\n    .pureva-mini-rating-text {\n      font-size: 13px;\n    }\n  }\n</style>\n            </div></div>"
+          }
+        },
         "title_KK3jyQ": {
           "type": "title",
           "settings": {
             "heading_tag": "h2"
+          }
+        },
+        "liquid_iK4q4x": {
+          "type": "liquid",
+          "settings": {
+            "liquid": ""
           }
         },
         "badges_UarzVy": {
@@ -84,7 +96,9 @@
         }
       },
       "block_order": [
+        "liquid_tUq6LH",
         "title_KK3jyQ",
+        "liquid_iK4q4x",
         "badges_UarzVy",
         "price_6TWJwE",
         "description_FdayCa",
