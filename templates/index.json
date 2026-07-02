@@ -529,8 +529,8 @@
       "settings": {
         "heading": "F.A.Q",
         "description": "Une question ? Nous avons la réponse ! Notre équipe d’experts est là pour vous, du lundi au samedi, de 9h à 18h.",
-        "button_label": "",
-        "button_link": "",
+        "button_label": "contact.hydralab@gmail.com",
+        "button_link": "shopify://pages/contact",
         "avatar_alt_1": "Expert support 1",
         "avatar_alt_2": "Expert support 2",
         "avatar_alt_3": "Expert support 3",
