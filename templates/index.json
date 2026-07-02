@@ -372,7 +372,7 @@
         "heading": "Les 4 améliorations\nque toute la famille\nressent.",
         "image_position": "center center",
         "mobile_image_position": "center center",
-        "section_background": "#FFFFFF",
+        "section_background": "#ffffff",
         "text_color": "#ffffff",
         "card_text_color": "#ffffff",
         "card_background": "linear-gradient(110deg, rgba(83, 98, 111, 0.58), rgba(32, 36, 38, 0.72) 100%)",
@@ -421,6 +421,130 @@
         "mobile_number_text_size": 12,
         "mobile_number_position_top": 13,
         "mobile_number_position_right": 13
+      }
+    },
+    "infosfiltre_qdgJFy": {
+      "type": "infosfiltre",
+      "blocks": {
+        "contaminant_zEDhDj": {
+          "type": "contaminant",
+          "settings": {
+            "question": "Chlore & sous-produits chimiques",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        },
+        "contaminant_8NxUcq": {
+          "type": "contaminant",
+          "settings": {
+            "question": "PFAS (polluants éternels)",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        },
+        "contaminant_GRJdaD": {
+          "type": "contaminant",
+          "settings": {
+            "question": "Fluorure",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        },
+        "contaminant_j9yGKq": {
+          "type": "contaminant",
+          "settings": {
+            "question": "Microplastiques",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        },
+        "contaminant_jMqETr": {
+          "type": "contaminant",
+          "settings": {
+            "question": "Pesticides & résidus agricoles",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        },
+        "contaminant_pd4xQ8": {
+          "type": "contaminant",
+          "settings": {
+            "question": "Métaux lourds (plomb, mercure, cadmium)",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        },
+        "contaminant_JVCVFW": {
+          "type": "contaminant",
+          "settings": {
+            "question": "Sédiments & rouille",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        },
+        "contaminant_mDxgYz": {
+          "type": "contaminant",
+          "settings": {
+            "question": "Hydrocarbures & composés organiques volatils (COV)",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        },
+        "contaminant_mtwp4F": {
+          "type": "contaminant",
+          "settings": {
+            "question": "Résidus pharmaceutiques & polluants organiques",
+            "answer": "Texte explicatif modifiable sur cette catégorie de contaminants."
+          }
+        }
+      },
+      "block_order": [
+        "contaminant_zEDhDj",
+        "contaminant_8NxUcq",
+        "contaminant_GRJdaD",
+        "contaminant_j9yGKq",
+        "contaminant_jMqETr",
+        "contaminant_pd4xQ8",
+        "contaminant_JVCVFW",
+        "contaminant_mDxgYz",
+        "contaminant_mtwp4F"
+      ],
+      "name": "Pureva filtration liste",
+      "settings": {
+        "product_image_alt": "Cartouche filtrante avant après",
+        "image_position": "center center",
+        "mobile_image_position": "center center",
+        "open_first": false,
+        "close_others": true,
+        "section_background": "#F4F4F4",
+        "image_card_background": "#FFFFFF",
+        "blue_background": "#2764FF",
+        "blue_text_color": "#FFFFFF",
+        "accordion_border_color": "rgba(255,255,255,0.14)",
+        "max_width": 1120,
+        "desktop_padding_y": 45,
+        "desktop_padding_x": 20,
+        "desktop_gap": 80,
+        "image_column_width": 6,
+        "accordion_column_width": 5,
+        "image_card_height": 560,
+        "card_radius": 18,
+        "accordion_radius": 16,
+        "accordion_padding_y": 17,
+        "accordion_padding_x": 22,
+        "accordion_shadow": "0 24px 55px rgba(39,100,255,0.28)",
+        "question_height": 56,
+        "question_size": 14,
+        "question_weight": "600",
+        "plus_size": 25,
+        "plus_text_size": 22,
+        "answer_size": 13,
+        "answer_bottom_padding": 14,
+        "mobile_padding_y": 15,
+        "mobile_padding_x": 8,
+        "mobile_card_radius": 18,
+        "mobile_image_card_height": 450,
+        "mobile_accordion_overlap": -40,
+        "mobile_accordion_radius": 22,
+        "mobile_accordion_padding_y": 17,
+        "mobile_accordion_padding_x": 21,
+        "mobile_question_height": 55,
+        "mobile_question_size": 14,
+        "mobile_plus_size": 25,
+        "mobile_plus_text_size": 22,
+        "mobile_answer_size": 13
       }
     },
     "faqsection_c4qqL6": {
@@ -537,15 +661,15 @@
         "open_first": false,
         "close_others": true,
         "check_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 6L9 17l-5-5\"></path></svg>",
-        "section_background": "#F4F4F4",
-        "text_color": "#08164C",
-        "muted_text_color": "#4E5878",
-        "border_color": "#D8DCE6",
-        "card_background": "#FFFFFF",
-        "icon_background": "#14244D",
-        "icon_color": "#FFFFFF",
-        "button_background": "transparent",
-        "button_text_color": "#14244D",
+        "section_background": "#f4f4f4",
+        "text_color": "#08164c",
+        "muted_text_color": "#4e5878",
+        "border_color": "#d8dce6",
+        "card_background": "#ffffff",
+        "icon_background": "#14244d",
+        "icon_color": "#ffffff",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "#14244d",
         "max_width": 1180,
         "desktop_padding_y": 95,
         "desktop_padding_x": 20,
@@ -615,6 +739,7 @@
     "press_76EqBc",
     "infosproduit_WiF8Lg",
     "benefitssection_J9yYhP",
+    "infosfiltre_qdgJFy",
     "faqsection_c4qqL6"
   ]
 }
