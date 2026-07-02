@@ -422,6 +422,191 @@
         "mobile_number_position_top": 13,
         "mobile_number_position_right": 13
       }
+    },
+    "faqsection_c4qqL6": {
+      "type": "faqsection",
+      "blocks": {
+        "question_qmCyVw": {
+          "type": "question",
+          "settings": {
+            "question": "Comment fonctionne le système de filtration HydraLab® ?",
+            "answer": "Le système de filtration utilise plusieurs couches complémentaires pour améliorer le goût de l’eau et réduire les impuretés du quotidien."
+          }
+        },
+        "question_zLLFxn": {
+          "type": "question",
+          "settings": {
+            "question": "Combien de temps prend l’installation ?",
+            "answer": "L’installation est rapide et se fait en quelques minutes seulement, sans outil compliqué."
+          }
+        },
+        "question_8He6Rt": {
+          "type": "question",
+          "settings": {
+            "question": "Et si je ne suis pas doué en bricolage ?",
+            "answer": "Aucun problème : le filtre est conçu pour être simple à installer, même sans expérience."
+          }
+        },
+        "question_HQEdD8": {
+          "type": "question",
+          "settings": {
+            "question": "Quelle est la durée de vie d’une cartouche ?",
+            "answer": "La durée dépend de votre consommation et de la qualité de votre eau, mais elle est pensée pour un usage quotidien confortable."
+          }
+        },
+        "question_tetb3J": {
+          "type": "question",
+          "settings": {
+            "question": "Le filtre est-il compatible avec tous les robinets ?",
+            "answer": "Il est compatible avec la majorité des robinets standards. Des adaptateurs peuvent être nécessaires selon le modèle."
+          }
+        },
+        "question_EPt4m9": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je modifier ou annuler mon abonnement à tout moment ?",
+            "answer": "Oui, vous pouvez modifier ou annuler votre abonnement selon les conditions définies sur votre boutique."
+          }
+        },
+        "question_Bpr3Gf": {
+          "type": "question",
+          "settings": {
+            "question": "Le filtre HydraLab® est-il garanti ?",
+            "answer": "Oui, le produit peut être couvert par une garantie selon les conditions affichées sur votre boutique."
+          }
+        },
+        "question_AUWacq": {
+          "type": "question",
+          "settings": {
+            "question": "Et si je ne suis pas satisfait ?",
+            "answer": "Vous pouvez proposer une période d’essai ou une garantie satisfaction selon votre politique commerciale."
+          }
+        },
+        "question_zVgGTk": {
+          "type": "question",
+          "settings": {
+            "question": "Quand puis-je commencer à profiter de mon eau filtrée ?",
+            "answer": "Dès l’installation terminée, vous pouvez commencer à utiliser votre filtre."
+          }
+        },
+        "benefit_KpT9BY": {
+          "type": "benefit",
+          "settings": {
+            "title": "Garantie 2 ans",
+            "text": "Une qualité conçue pour durer."
+          }
+        },
+        "benefit_APU3mP": {
+          "type": "benefit",
+          "settings": {
+            "title": "Essayez-le pendant 100 jours",
+            "text": "Satisfait ou remboursé, sans engagement."
+          }
+        },
+        "benefit_W7TYBW": {
+          "type": "benefit",
+          "settings": {
+            "title": "Livraison offerte",
+            "text": "Expédié directement chez vous."
+          }
+        }
+      },
+      "block_order": [
+        "question_qmCyVw",
+        "question_zLLFxn",
+        "question_8He6Rt",
+        "question_HQEdD8",
+        "question_tetb3J",
+        "question_EPt4m9",
+        "question_Bpr3Gf",
+        "question_AUWacq",
+        "question_zVgGTk",
+        "benefit_KpT9BY",
+        "benefit_APU3mP",
+        "benefit_W7TYBW"
+      ],
+      "name": "Pureva FAQ",
+      "settings": {
+        "heading": "F.A.Q",
+        "description": "Une question ? Nous avons la réponse ! Notre équipe d’experts est là pour vous, du lundi au samedi, de 9h à 18h.",
+        "button_label": "",
+        "button_link": "",
+        "avatar_alt_1": "Expert support 1",
+        "avatar_alt_2": "Expert support 2",
+        "avatar_alt_3": "Expert support 3",
+        "open_first": false,
+        "close_others": true,
+        "check_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 6L9 17l-5-5\"></path></svg>",
+        "section_background": "#F4F4F4",
+        "text_color": "#08164C",
+        "muted_text_color": "#4E5878",
+        "border_color": "#D8DCE6",
+        "card_background": "#FFFFFF",
+        "icon_background": "#14244D",
+        "icon_color": "#FFFFFF",
+        "button_background": "transparent",
+        "button_text_color": "#14244D",
+        "max_width": 1180,
+        "desktop_padding_y": 95,
+        "desktop_padding_x": 20,
+        "left_column_width": 4,
+        "right_column_width": 6,
+        "desktop_gap": 95,
+        "heading_size": 30,
+        "heading_weight": "800",
+        "heading_bottom_spacing": 25,
+        "description_size": 14,
+        "description_weight": "500",
+        "description_width": 470,
+        "description_bottom_spacing": 32,
+        "avatar_size": 28,
+        "avatar_overlap": 8,
+        "button_width": 470,
+        "button_height": 48,
+        "button_text_size": 14,
+        "question_size": 14,
+        "question_weight": "800",
+        "question_padding_y": 20,
+        "plus_size": 25,
+        "answer_size": 14,
+        "answer_bottom_padding": 18,
+        "benefits_top_spacing": 28,
+        "benefits_columns_desktop": 3,
+        "benefits_gap": 20,
+        "benefit_height": 80,
+        "benefit_padding_y": 18,
+        "benefit_padding_x": 24,
+        "benefit_icon_size": 28,
+        "benefit_icon_overlap": 12,
+        "benefit_icon_offset": 36,
+        "benefit_title_size": 13,
+        "benefit_text_size": 13,
+        "mobile_padding_y": 55,
+        "mobile_padding_x": 20,
+        "mobile_gap": 42,
+        "mobile_heading_size": 29,
+        "mobile_heading_bottom_spacing": 22,
+        "mobile_description_size": 14,
+        "mobile_description_bottom_spacing": 28,
+        "mobile_avatar_size": 28,
+        "mobile_avatar_overlap": 8,
+        "mobile_button_height": 48,
+        "mobile_button_text_size": 14,
+        "mobile_question_size": 14,
+        "mobile_question_padding_y": 18,
+        "mobile_plus_size": 24,
+        "mobile_answer_size": 14,
+        "mobile_benefits_top_spacing": 28,
+        "mobile_benefits_gap": 16,
+        "mobile_benefit_height": 80,
+        "mobile_benefit_padding_y": 18,
+        "mobile_benefit_padding_x": 22,
+        "mobile_benefit_icon_size": 28,
+        "mobile_benefit_icon_overlap": 10,
+        "mobile_benefit_icon_offset": 38,
+        "mobile_benefit_title_size": 13,
+        "mobile_benefit_text_size": 13
+      }
     }
   },
   "order": [
@@ -429,6 +614,7 @@
     "featured_product_nT99RK",
     "press_76EqBc",
     "infosproduit_WiF8Lg",
-    "benefitssection_J9yYhP"
+    "benefitssection_J9yYhP",
+    "faqsection_c4qqL6"
   ]
 }
