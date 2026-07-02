@@ -508,7 +508,7 @@
         "mobile_image_position": "center center",
         "open_first": false,
         "close_others": true,
-        "section_background": "#F4F4F4",
+        "section_background": "#FFFFFF",
         "image_card_background": "#FFFFFF",
         "blue_background": "#2764FF",
         "blue_text_color": "#FFFFFF",
