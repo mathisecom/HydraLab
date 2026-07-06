@@ -708,6 +708,7 @@
         },
         "question_EPt4m9": {
           "type": "question",
+          "disabled": true,
           "settings": {
             "question": "Puis-je modifier ou annuler mon abonnement à tout moment ?",
             "answer": "Oui, vous pouvez modifier ou annuler votre abonnement selon les conditions définies sur votre boutique."
