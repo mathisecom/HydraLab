@@ -404,6 +404,7 @@
         "review_BciHPK": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_6_juil._2026_13_53_37_1.png",
             "show_image": true,
             "rating": 5,
             "title": "Enfin une eau saine... et bonne !",
@@ -416,6 +417,7 @@
         "review_taLMUt": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_6_juil._2026_13_53_37_2.png",
             "show_image": true,
             "rating": 5,
             "title": "Bien plus simple que mon ancien filtre !",
@@ -428,6 +430,7 @@
         "review_8tYVGM": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_6_juil._2026_13_53_37_3.png",
             "show_image": true,
             "rating": 5,
             "title": "On a arrêté d’acheter des packs d’eau !",
@@ -440,6 +443,7 @@
         "review_jnewET": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_6_juil._2026_13_53_37_5.png",
             "show_image": true,
             "rating": 5,
             "title": "L’eau ne me donne plus mal au ventre",
@@ -452,6 +456,7 @@
         "review_yzDfhA": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_6_juil._2026_13_53_37_6.png",
             "show_image": true,
             "rating": 5,
             "title": "Un bon geste, sans contrainte",
