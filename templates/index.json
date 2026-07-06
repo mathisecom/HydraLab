@@ -9,6 +9,66 @@
  */
 {
   "sections": {
+    "statbar_H87bzt": {
+      "type": "statbar",
+      "blocks": {
+        "stat_qYbMmz": {
+          "type": "stat",
+          "settings": {
+            "number": "92%",
+            "text": "cheaper than bottled water per liter"
+          }
+        },
+        "stat_7Nx3FP": {
+          "type": "stat",
+          "settings": {
+            "number": "2,000×",
+            "text": "finer filtration than a standard jug"
+          }
+        },
+        "stat_VXmEEB": {
+          "type": "stat",
+          "settings": {
+            "number": "150+",
+            "text": "contaminants removed from your water"
+          }
+        }
+      },
+      "block_order": [
+        "stat_qYbMmz",
+        "stat_7Nx3FP",
+        "stat_VXmEEB"
+      ],
+      "name": "Pureva barre statistiques",
+      "settings": {
+        "section_background": "#08163D",
+        "text_color": "#FFFFFF",
+        "muted_text_color": "#B9C8E0",
+        "divider_color": "#FFFFFF",
+        "divider_opacity": 25,
+        "max_width": 760,
+        "desktop_padding_y": 25,
+        "desktop_padding_x": 20,
+        "columns_desktop": 3,
+        "item_padding_x": 35,
+        "divider_height": 50,
+        "number_size": 28,
+        "number_weight": "900",
+        "number_bottom_spacing": 7,
+        "text_size": 13,
+        "text_weight": "500",
+        "text_width": 200,
+        "mobile_padding_y": 10,
+        "mobile_padding_x": 4,
+        "columns_mobile": 3,
+        "mobile_item_padding_x": 8,
+        "mobile_divider_height": 38,
+        "mobile_number_size": 20,
+        "mobile_number_bottom_spacing": 5,
+        "mobile_text_size": 9,
+        "mobile_text_width": 105
+      }
+    },
     "logoscroll_ed3aT4": {
       "type": "logoscroll",
       "blocks": {
@@ -863,6 +923,7 @@
     }
   },
   "order": [
+    "statbar_H87bzt",
     "logoscroll_ed3aT4",
     "featured_product_nT99RK",
     "press_76EqBc",
