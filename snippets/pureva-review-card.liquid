@@ -1,20 +1,20 @@
 {% assign has_image = false %}
-{% if block.settings.image != blank and block.settings.show_image %}
+
+{% if block.settings.show_image and block.settings.image != blank and section.settings.desktop_layout == 'image_left' %}
   {% assign has_image = true %}
 {% endif %}
 
-<article
-  class="pureva-review-card {% if has_image %}card-with-image{% else %}card-text-only{% endif %}"
-  {{ block.shopify_attributes }}
->
+<article class="pureva-review-card{% unless has_image %} card-text-only{% endunless %}" {{ block.shopify_attributes }}>
   {% if has_image %}
     <div class="pureva-review-image-wrap">
-      <img
-        src="{{ block.settings.image | image_url: width: 500 }}"
-        alt="{{ block.settings.title | escape }}"
-        class="pureva-review-image"
-        loading="lazy"
-      >
+      {{
+        block.settings.image
+        | image_url: width: 500
+        | image_tag:
+          class: 'pureva-review-image',
+          loading: 'lazy',
+          alt: block.settings.name
+      }}
     </div>
   {% endif %}
 
