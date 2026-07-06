@@ -44,21 +44,21 @@
           "type": "benefit",
           "settings": {
             "benefit_icon": "✹",
-            "benefit_text": "100% Naturel"
+            "benefit_text": "Eau Pure"
           }
         },
         "benefit_gRqHpQ": {
           "type": "benefit",
           "settings": {
             "benefit_icon": "✹",
-            "benefit_text": "Élimine le duvet"
+            "benefit_text": "Pose Rapide"
           }
         },
         "benefit_89f8jj": {
           "type": "benefit",
           "settings": {
             "benefit_icon": "✹",
-            "benefit_text": "Peau plus lisse"
+            "benefit_text": "Sans Plastique"
           }
         }
       },
