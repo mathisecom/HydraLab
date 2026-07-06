@@ -73,10 +73,11 @@
       ],
       "name": "Hero nutrition moderne",
       "settings": {
+        "main_image": "shopify://shop_images/77e6831b-8a06-4532-bc13-cd5af02c7be9.png",
         "image_fit": "cover",
         "image_position": "center center",
-        "image_ratio": 155,
-        "image_ratio_mobile": 155,
+        "image_ratio": 125,
+        "image_ratio_mobile": 130,
         "image_position_desktop": "left",
         "image_position_mobile": "top",
         "show_badge": false,
