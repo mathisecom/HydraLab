@@ -120,10 +120,6 @@
             "size_chart_page": ""
           }
         },
-        "quantity_selector_iA4UGA": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
         "liquid_NReB44": {
           "type": "liquid",
           "settings": {
@@ -186,7 +182,6 @@
         "price_6TWJwE",
         "description_FdayCa",
         "variant_picker_cAVmYT",
-        "quantity_selector_iA4UGA",
         "liquid_NReB44",
         "buy_buttons_ECjbfQ",
         "liquid_LfFxkj",
@@ -337,10 +332,10 @@
       "name": "Pureva pourquoi choisir",
       "settings": {
         "heading": "Pourquoi choisir HydraLab® ?",
-        "section_background": "#FFFFFF",
+        "section_background": "#ffffff",
         "text_color": "#102652",
         "muted_text_color": "#102652",
-        "highlight_background": "#EEFF1F",
+        "highlight_background": "#eeff1f",
         "highlight_text_color": "#102652",
         "divider_color": "#102652",
         "mobile_card_background": "rgba(255,255,255,0)",
