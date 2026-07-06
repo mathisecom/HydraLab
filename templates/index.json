@@ -23,14 +23,14 @@
           "type": "stat",
           "settings": {
             "number": "2,000×",
-            "text": "finer filtration than a standard jug"
+            "text": "Plus efficace qu'une carafe filtrante classique"
           }
         },
         "stat_VXmEEB": {
           "type": "stat",
           "settings": {
-            "number": "150+",
-            "text": "contaminants removed from your water"
+            "number": "+150",
+            "text": "Contaminants éliminés de votre eau"
           }
         }
       },
@@ -65,7 +65,7 @@
         "mobile_divider_height": 38,
         "mobile_number_size": 20,
         "mobile_number_bottom_spacing": 5,
-        "mobile_text_size": 9,
+        "mobile_text_size": 8,
         "mobile_text_width": 105
       }
     },
