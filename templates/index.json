@@ -1215,7 +1215,7 @@
         "open_first": false,
         "close_others": true,
         "check_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 6L9 17l-5-5\"></path></svg>",
-        "section_background": "#f4f4f4",
+        "section_background": "#F7F7F8",
         "text_color": "#08164c",
         "muted_text_color": "#4e5878",
         "border_color": "#d8dce6",
