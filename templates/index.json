@@ -55,9 +55,9 @@
         "number_size": 28,
         "number_weight": "900",
         "number_bottom_spacing": 7,
-        "text_size": 13,
+        "text_size": 11,
         "text_weight": "500",
-        "text_width": 200,
+        "text_width": 260,
         "mobile_padding_y": 10,
         "mobile_padding_x": 4,
         "columns_mobile": 3,
@@ -273,6 +273,74 @@
         "text_color": "",
         "input_background": "rgba(0,0,0,0)",
         "input_text_color": ""
+      }
+    },
+    "marquee_i4mecj": {
+      "type": "marquee",
+      "blocks": {
+        "item_Y4DUcB": {
+          "type": "item",
+          "settings": {
+            "icon": "◷",
+            "text": "Installation en moins de 5 min"
+          }
+        },
+        "item_NXfEJb": {
+          "type": "item",
+          "settings": {
+            "icon": "🔧",
+            "text": "Compatible avec 99% des robinets"
+          }
+        },
+        "item_cViCaA": {
+          "type": "item",
+          "settings": {
+            "icon": "⚗",
+            "text": "Filtration certifiée Eurofins"
+          }
+        },
+        "item_dA3NBj": {
+          "type": "item",
+          "settings": {
+            "icon": "€",
+            "text": "Jusqu'à 600€ économisés par an"
+          }
+        },
+        "item_FbfPP9": {
+          "type": "item",
+          "settings": {
+            "icon": "💧",
+            "text": "Eau filtrée en 0,1 micron"
+          }
+        }
+      },
+      "block_order": [
+        "item_Y4DUcB",
+        "item_NXfEJb",
+        "item_cViCaA",
+        "item_dA3NBj",
+        "item_FbfPP9"
+      ],
+      "name": "Pureva Marquee",
+      "settings": {
+        "speed": 28,
+        "direction": "left",
+        "pause_on_hover": true,
+        "section_background": "#ffffff",
+        "pill_background": "#08163D",
+        "text_color": "#FFFFFF",
+        "icon_color": "#FFFFFF",
+        "font_size": 14,
+        "font_weight": "400",
+        "pill_radius": 40,
+        "pill_padding_y": 14,
+        "pill_padding_x": 22,
+        "gap": 18,
+        "section_padding_y": 11,
+        "mobile_font_size": 13,
+        "mobile_pill_padding_y": 12,
+        "mobile_pill_padding_x": 18,
+        "mobile_section_padding_y": 18
       }
     },
     "press_76EqBc": {
@@ -926,6 +994,7 @@
     "statbar_H87bzt",
     "logoscroll_ed3aT4",
     "featured_product_nT99RK",
+    "marquee_i4mecj",
     "press_76EqBc",
     "whychoose_EgW76X",
     "infosproduit_WiF8Lg",
