@@ -27,6 +27,7 @@
     "secondary_button_text_color": "#1a1a1a",
     "product_card_text_color": "#08163D",
     "product_rating_color": "#00B67A",
+    "product_on_sale_accent": "#08163D",
     "product_primary_badge_background": "#803cee",
     "heading_font": "bricolage_grotesque_n6",
     "heading_font_size": "small",

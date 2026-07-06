@@ -328,6 +328,12 @@
             "heading_tag": "h2"
           }
         },
+        "price_6TWJwE": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
         "liquid_HiKqJL": {
           "type": "liquid",
           "settings": {
@@ -343,13 +349,6 @@
         "badges_UarzVy": {
           "type": "badges",
           "settings": {}
-        },
-        "price_6TWJwE": {
-          "type": "price",
-          "disabled": true,
-          "settings": {
-            "show_taxes_notice": false
-          }
         },
         "description_FdayCa": {
           "type": "description",
@@ -427,10 +426,10 @@
       "block_order": [
         "liquid_tUq6LH",
         "title_KK3jyQ",
+        "price_6TWJwE",
         "liquid_HiKqJL",
         "liquid_iK4q4x",
         "badges_UarzVy",
-        "price_6TWJwE",
         "description_FdayCa",
         "variant_picker_cAVmYT",
         "liquid_NReB44",
