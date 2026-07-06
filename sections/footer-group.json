@@ -94,9 +94,9 @@
           "settings": {
             "image": "shopify://shop_images/Lenova_3_1.png",
             "image_width": 170,
-            "heading_size": "h3",
-            "title": "Newsletter",
-            "content": ""
+            "heading_size": "h4",
+            "title": "Une eau (vraiment) pure. Simplement.",
+            "content": "<p>Recevez des offres exclusives, des mises à jour sur la qualité de l'eau dans votre région, et plus encore en vous inscrivant à notre newsletter</p>"
           }
         },
         "links": {
