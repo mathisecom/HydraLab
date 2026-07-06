@@ -488,7 +488,7 @@
         "review_yzDfhA",
         "review_zPAAat"
       ],
-      "name": "Pureva avis clients",
+      "name": "HydraLab avis clients",
       "settings": {
         "rating_text": "Excellent",
         "rating_score": "4.8",
@@ -675,7 +675,7 @@
         "stat_Qhkfqf",
         "stat_edBNxq"
       ],
-      "name": "Pureva données produit",
+      "name": "HydraLab données produit",
       "settings": {
         "main_image": "shopify://shop_images/AF7819C0-7549-4356-864A-3384F1D93E34.webp",
         "image_alt": "Cartouche neuve et cartouche usagée",
@@ -702,6 +702,168 @@
         "mobile_heading_size": 29,
         "mobile_number_size": 24,
         "mobile_text_size": 12
+      }
+    },
+    "tabsvs_JUGeKq": {
+      "type": "tabsvs",
+      "blocks": {
+        "row_TqchfE": {
+          "type": "row",
+          "settings": {
+            "feature": "Réduit les pesticides",
+            "brand_type": "check",
+            "brand_text": "Acier inox",
+            "column_2_type": "cross",
+            "column_2_text": "Acier inox",
+            "column_3_type": "check",
+            "column_3_text": "⚠ Plastique",
+            "column_3_badge": false
+          }
+        },
+        "row_YJq3VF": {
+          "type": "row",
+          "settings": {
+            "feature": "Réduit les métaux lourds",
+            "brand_type": "check",
+            "brand_text": "Acier inox",
+            "column_2_type": "cross",
+            "column_2_text": "Acier inox",
+            "column_3_type": "check",
+            "column_3_text": "⚠ Plastique",
+            "column_3_badge": false
+          }
+        },
+        "row_4FBRjD": {
+          "type": "row",
+          "settings": {
+            "feature": "Réduit les microplastiques",
+            "brand_type": "check",
+            "brand_text": "Acier inox",
+            "column_2_type": "cross",
+            "column_2_text": "Acier inox",
+            "column_3_type": "cross",
+            "column_3_text": "⚠ Plastique",
+            "column_3_badge": false
+          }
+        },
+        "row_cF6xiD": {
+          "type": "row",
+          "settings": {
+            "feature": "Améliore le goût",
+            "brand_type": "check",
+            "brand_text": "Acier inox",
+            "column_2_type": "cross",
+            "column_2_text": "Acier inox",
+            "column_3_type": "check",
+            "column_3_text": "⚠ Plastique",
+            "column_3_badge": false
+          }
+        },
+        "row_LnbjPF": {
+          "type": "row",
+          "settings": {
+            "feature": "Conserve les minéraux",
+            "brand_type": "check",
+            "brand_text": "Acier inox",
+            "column_2_type": "check",
+            "column_2_text": "Acier inox",
+            "column_3_type": "check",
+            "column_3_text": "⚠ Plastique",
+            "column_3_badge": false
+          }
+        },
+        "row_GP7gVt": {
+          "type": "row",
+          "settings": {
+            "feature": "Matériaux utilisés",
+            "brand_type": "text",
+            "brand_text": "Acier inox",
+            "column_2_type": "text",
+            "column_2_text": "Acier inox",
+            "column_3_type": "text",
+            "column_3_text": "⚠ Plastique",
+            "column_3_badge": true
+          }
+        },
+        "row_XKHUjF": {
+          "type": "row",
+          "settings": {
+            "feature": "Prix au litre",
+            "brand_type": "text",
+            "brand_text": "0,02€",
+            "column_2_type": "text",
+            "column_2_text": "0,003 €",
+            "column_3_type": "text",
+            "column_3_text": "0,37 €",
+            "column_3_badge": false
+          }
+        }
+      },
+      "block_order": [
+        "row_TqchfE",
+        "row_YJq3VF",
+        "row_4FBRjD",
+        "row_cF6xiD",
+        "row_LnbjPF",
+        "row_GP7gVt",
+        "row_XKHUjF"
+      ],
+      "name": "HydraLab comparaison",
+      "settings": {
+        "badge_text": "Comparaison OhPur",
+        "heading": "Votre eau au quotidien,\nsans compromis",
+        "subheading": "OhPur vous permet de consommer une eau pure, sans plastique et à moindre coût.",
+        "pill_1": "Moins coûteux",
+        "pill_2": "Plus écologique",
+        "pill_3": "Plus respectueux de la planète",
+        "stat_1_number": "15 milliards",
+        "stat_1_text": "bouteilles en plastique vendues par an en France",
+        "stat_2_number": "8%",
+        "stat_2_text": "du plastique seulement est recyclé",
+        "stat_3_number": "245 000",
+        "stat_3_text": "microplastiques ingérés par litre d’eau en bouteille",
+        "brand_name": "OhPur.",
+        "brand_subtitle": "Comparaison",
+        "column_2_icon": "🚰",
+        "column_2_title": "Eau du robinet",
+        "column_3_icon": "🧴",
+        "column_3_title": "Bouteilles en plastique",
+        "bottom_note": "Comparaison donnée à titre indicatif.",
+        "section_background": "#030D4E",
+        "text_color": "#FFFFFF",
+        "muted_text_color": "#8EA2CF",
+        "pill_background": "#1D2B70",
+        "table_background": "#FFFFFF",
+        "main_column_background": "#0D2949",
+        "main_column_text": "#FFFFFF",
+        "border_color": "#E7EAF0",
+        "check_background": "#0D2949",
+        "check_color": "#D7FAFF",
+        "cross_background": "#FFE5E3",
+        "cross_color": "#EF3B35",
+        "max_width": 1040,
+        "desktop_padding_y": 80,
+        "table_width": 860,
+        "table_radius": 18,
+        "badge_size": 10,
+        "heading_size": 44,
+        "subheading_size": 14,
+        "pill_size": 12,
+        "stat_number_size": 30,
+        "stat_text_size": 12,
+        "column_icon_size": 30,
+        "table_text_size": 13,
+        "table_value_size": 13,
+        "mobile_padding_y": 55,
+        "mobile_badge_size": 9,
+        "mobile_heading_size": 34,
+        "mobile_subheading_size": 13,
+        "mobile_pill_size": 11,
+        "mobile_stat_number_size": 28,
+        "mobile_stat_text_size": 12,
+        "mobile_table_radius": 16,
+        "mobile_table_text_size": 12,
+        "mobile_table_value_size": 12
       }
     },
     "benefitssection_J9yYhP": {
@@ -878,7 +1040,7 @@
         "contaminant_mDxgYz",
         "contaminant_mtwp4F"
       ],
-      "name": "Pureva filtration liste",
+      "name": "HydraLab filtration liste",
       "settings": {
         "product_image": "shopify://shop_images/ChatGPT_Image_2_juil._2026_12_09_51.png",
         "product_image_alt": "Cartouche filtrante avant après",
@@ -991,7 +1153,7 @@
         "layer_zRnjbK",
         "layer_VCBxnt"
       ],
-      "name": "Pureva couches filtration",
+      "name": "HydraLab couches filtration",
       "settings": {
         "badge_text": "Que contiennent nos cartouches ?",
         "heading": "La nature filtre l'eau par couches. Nous aussi",
@@ -1002,16 +1164,16 @@
         "card_arrow_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 17L17 7\"></path><path d=\"M9 7h8v8\"></path></svg>",
         "prev_arrow_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 18l-6-6 6-6\"></path></svg>",
         "next_arrow_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 18l6-6-6-6\"></path></svg>",
-        "section_background": "#F7F7F8",
-        "text_color": "#061A44",
+        "section_background": "#f7f7f8",
+        "text_color": "#061a44",
         "muted_text_color": "#728096",
-        "badge_background": "#E9EEFF",
-        "badge_text_color": "#061A44",
-        "card_background": "#FFFFFF",
-        "card_text_color": "#061A44",
-        "border_color": "#D7DEE9",
-        "button_background": "#FFFFFF",
-        "button_text_color": "#061A44",
+        "badge_background": "#e9eeff",
+        "badge_text_color": "#061a44",
+        "card_background": "#ffffff",
+        "card_text_color": "#061a44",
+        "border_color": "#d7dee9",
+        "button_background": "#ffffff",
+        "button_text_color": "#061a44",
         "certification_background": "rgba(255,255,255,0.35)",
         "max_width": 1280,
         "desktop_padding_y": 70,
@@ -1220,7 +1382,7 @@
         "open_first": false,
         "close_others": true,
         "check_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 6L9 17l-5-5\"></path></svg>",
-        "section_background": "#F7F7F8",
+        "section_background": "#f7f7f8",
         "text_color": "#08164c",
         "muted_text_color": "#4e5878",
         "border_color": "#d8dce6",
@@ -1301,6 +1463,7 @@
     "avisclients_zPANjJ",
     "whychoose_EgW76X",
     "infosproduit_WiF8Lg",
+    "tabsvs_JUGeKq",
     "benefitssection_J9yYhP",
     "infosfiltre_qdgJFy",
     "ingredients_88xQbV",
