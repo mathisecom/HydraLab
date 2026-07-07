@@ -282,7 +282,17 @@
 
     class BundleOffer extends HTMLElement {
       connectedCallback() {
-        this.product = JSON.parse(this.querySelector('[data-bundle-product]').textContent);
+        if (this._init) return;
+        this._init = true;
+
+        try {
+          const json = this.querySelector('[data-bundle-product]');
+          this.product = json ? JSON.parse(json.textContent) : { variants: [] };
+        } catch (e) {
+          console.warn('[bundle-offer] Impossible de lire les donnees produit', e);
+          this.product = { variants: [] };
+        }
+
         this.formId = this.getAttribute('form');
         this.optionIndex = parseInt(this.getAttribute('option-index') || '0', 10);
         this.sellingPlanId = this.getAttribute('selling-plan-id');
@@ -291,20 +301,37 @@
 
         this.currency = this.getAttribute('currency') || 'EUR';
         this.locale = this.getAttribute('locale') || document.documentElement.lang || 'fr';
-        this.formatter = new Intl.NumberFormat(this.locale, { style: 'currency', currency: this.currency });
+        try {
+          this.formatter = new Intl.NumberFormat(this.locale, { style: 'currency', currency: this.currency });
+        } catch (e) {
+          this.formatter = new Intl.NumberFormat('fr', { style: 'currency', currency: 'EUR' });
+        }
 
         this.sellingPlanInput = this.querySelector('input[name="selling_plan"]');
 
-        this.querySelectorAll('[data-bundle-pill]').forEach((pill) => {
-          pill.addEventListener('click', () => this.selectValue(pill.dataset.value));
-        });
+        // Delegation d'evenements : un seul ecouteur sur le composant.
+        // Robuste meme si le theme reinjecte le HTML (product-rerender).
+        this.addEventListener('click', (event) => {
+          const pill = event.target.closest('[data-bundle-pill]');
+          if (pill && this.contains(pill)) {
+            event.preventDefault();
+            this.selectValue(pill.dataset.value);
+            return;
+          }
 
-        this.querySelectorAll('[data-bundle-plan]').forEach((card) => {
-          card.addEventListener('click', () => this.selectPlan(card));
-        });
+          const card = event.target.closest('[data-bundle-plan]');
+          if (card && this.contains(card)) {
+            event.preventDefault();
+            this.selectPlan(card);
+            return;
+          }
 
-        const edit = this.querySelector('[data-bundle-edit]');
-        if (edit) edit.addEventListener('click', () => this.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+          const edit = event.target.closest('[data-bundle-edit]');
+          if (edit && this.contains(edit)) {
+            event.preventDefault();
+            this.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
 
         this.render();
       }
@@ -339,9 +366,11 @@
           (form && form.querySelector('input[name="id"], select[name="id"]')) ||
           document.querySelector(`[form="${this.formId}"][name="id"]`);
 
+        // On met a jour la variante pour l'ajout au panier, mais SANS declencher
+        // l'evenement "change" observe par le theme (product-rerender), sinon il
+        // rechargerait tout le bloc et reinitialiserait la selection.
         if (idInput && variant) {
           idInput.value = variant.id;
-          idInput.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
         this.render();
