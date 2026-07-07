@@ -360,6 +360,22 @@
         },
         {
           "type": "header",
+          "content": "Bouton Ajouter au panier"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_atc_button",
+          "label": "Afficher le bouton Ajouter au panier intégré",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "atc_label",
+          "label": "Texte du bouton",
+          "default": "Ajouter au panier"
+        },
+        {
+          "type": "header",
           "content": "Divers"
         },
         {
@@ -369,16 +385,122 @@
           "default": "Filtre OFFERT inclus"
         },
         {
+          "type": "header",
+          "content": "Couleurs"
+        },
+        {
           "type": "color",
           "id": "accent_color",
-          "label": "Couleur principale",
+          "label": "Couleur principale (marine)",
           "default": "#132a4a"
         },
         {
-          "type": "checkbox",
-          "id": "show_atc_button",
-          "label": "Afficher le bouton Ajouter au panier intégré",
-          "default": true
+          "type": "color",
+          "id": "highlight_color",
+          "label": "Couleur d'accent (bleu)",
+          "default": "#2f7ff2"
+        },
+        {
+          "type": "color",
+          "id": "reco_badge_background",
+          "label": "Fond badge « Recommandé »",
+          "default": "#d9f6e3"
+        },
+        {
+          "type": "color",
+          "id": "reco_badge_color",
+          "label": "Texte badge « Recommandé »",
+          "default": "#0f9d58"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Couleur des bordures",
+          "default": "#e6e9ef"
+        },
+        {
+          "type": "header",
+          "content": "Tailles & style"
+        },
+        {
+          "type": "range",
+          "id": "corner_radius",
+          "label": "Arrondi des angles",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "step_title_size",
+          "label": "Taille des titres d'étape",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "question_size",
+          "label": "Taille de la question (étape 1)",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "pill_size",
+          "label": "Taille du texte des pilules",
+          "min": 11,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "plan_title_size",
+          "label": "Taille des titres de formule",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "price_size",
+          "label": "Taille des prix",
+          "min": 16,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 22
+        },
+        {
+          "type": "range",
+          "id": "description_size",
+          "label": "Taille des descriptions",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 13
+        },
+        {
+          "type": "range",
+          "id": "atc_size",
+          "label": "Taille du bouton Ajouter au panier",
+          "min": 13,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 16
         }
       ]
     },
