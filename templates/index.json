@@ -334,8 +334,15 @@
             "heading_tag": "h2"
           }
         },
+        "text_7iBQRT": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Transformez votre robinet en source d’eau pure</strong></p>"
+          }
+        },
         "price_6TWJwE": {
           "type": "price",
+          "disabled": true,
           "settings": {
             "show_taxes_notice": false
           }
@@ -439,6 +446,7 @@
         "liquid_cNjPQJ",
         "liquid_tUq6LH",
         "title_KK3jyQ",
+        "text_7iBQRT",
         "price_6TWJwE",
         "liquid_HiKqJL",
         "liquid_iK4q4x",
