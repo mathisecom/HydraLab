@@ -95,6 +95,13 @@
                   </div>
                 </div>
 
+              {%- when 'bundle_offer' -%}
+                {%- comment -%}
+                  Le bloc Bundle / Offre nécessite un vrai produit (variantes + selling plans).
+                  Il ne s'affiche donc pas en mode placeholder (aucun produit sélectionné).
+                {%- endcomment -%}
+                <div class="text-subdued text-sm" {{ block.shopify_attributes }}>Sélectionnez un produit pour afficher le bloc Bundle / Offre.</div>
+
               {%- when 'quantity_selector' -%}
                 <div class="product-info__quantity-selector {{ block.shopify_attributes }}">
                   {%- assign variant = section.settings.product.selected_or_first_available_variant -%}
@@ -231,6 +238,147 @@
           "id": "show_taxes_notice",
           "label": "Show taxes notice",
           "default": false
+        }
+      ]
+    },
+    {
+      "type": "bundle_offer",
+      "name": "Bundle / Offre",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "L'abonnement nécessite un « selling plan » (app Shopify Subscriptions ou équivalent). Sans selling plan, seule la carte Achat unique s'affiche."
+        },
+        {
+          "type": "text",
+          "id": "option_name",
+          "label": "Nom de l'option produit (étape 1)",
+          "info": "Ex : Foyer. Laisser vide pour utiliser la première option du produit."
+        },
+        {
+          "type": "text",
+          "id": "step_1_title",
+          "label": "Titre étape 1",
+          "default": "Configurez votre offre :"
+        },
+        {
+          "type": "text",
+          "id": "option_question",
+          "label": "Question étape 1",
+          "default": "Nombre de personnes dans votre foyer ?"
+        },
+        {
+          "type": "text",
+          "id": "option_tooltip",
+          "label": "Info-bulle « Pourquoi ? »"
+        },
+        {
+          "type": "text",
+          "id": "step_2_title",
+          "label": "Titre étape 2",
+          "default": "Personnalisez votre offre :"
+        },
+        {
+          "type": "text",
+          "id": "summary_prefix",
+          "label": "Préfixe du résumé",
+          "default": "Foyer"
+        },
+        {
+          "type": "text",
+          "id": "plans_title",
+          "label": "Titre des formules",
+          "default": "Renouvellement de vos cartouches filtrantes :"
+        },
+        {
+          "type": "text",
+          "id": "plans_tooltip",
+          "label": "Info-bulle « Sans engagement »"
+        },
+        {
+          "type": "header",
+          "content": "Carte Abonnement"
+        },
+        {
+          "type": "text",
+          "id": "subscription_title",
+          "label": "Titre",
+          "default": "Renouvellement automatique - tous les 3 mois"
+        },
+        {
+          "type": "text",
+          "id": "subscription_badge",
+          "label": "Badge",
+          "default": "Recommandé"
+        },
+        {
+          "type": "text",
+          "id": "subscription_tag",
+          "label": "Étiquette",
+          "default": "Sans engagement"
+        },
+        {
+          "type": "text",
+          "id": "subscription_frequency",
+          "label": "Fréquence affichée",
+          "default": "tous les 3 mois"
+        },
+        {
+          "type": "text",
+          "id": "subscription_description",
+          "label": "Description",
+          "default": "Renouvellement de vos cartouches tous les 3 mois automatiquement · Livraison gratuite"
+        },
+        {
+          "type": "text",
+          "id": "subscription_note",
+          "label": "Note",
+          "default": "Recevez vos cartouches automatiquement. Modifiez ou annulez à tout moment."
+        },
+        {
+          "type": "header",
+          "content": "Carte Achat unique"
+        },
+        {
+          "type": "text",
+          "id": "one_time_title",
+          "label": "Titre",
+          "default": "Achat unique pour 3 mois"
+        },
+        {
+          "type": "text",
+          "id": "one_time_subtitle",
+          "label": "Sous-titre",
+          "default": "Commande ponctuelle"
+        },
+        {
+          "type": "text",
+          "id": "one_time_description",
+          "label": "Description",
+          "default": "Commandez une seule fois, sans engagement ni renouvellement automatique."
+        },
+        {
+          "type": "header",
+          "content": "Divers"
+        },
+        {
+          "type": "text",
+          "id": "perk_text",
+          "label": "Avantage commun (coche bleue)",
+          "default": "Filtre OFFERT inclus"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Couleur principale",
+          "default": "#132a4a"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_atc_button",
+          "label": "Afficher le bouton Ajouter au panier intégré",
+          "default": true
         }
       ]
     },
@@ -1883,6 +2031,9 @@
         },
         {
           "type": "price"
+        },
+        {
+          "type": "bundle_offer"
         },
         {
           "type": "rating"
