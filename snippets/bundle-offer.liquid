@@ -10,19 +10,13 @@
     - product_form_id  : l'id du formulaire produit
     - block            : le block (pour les settings + shopify_attributes)
 
-  Pré-requis :
-    - L'abonnement utilise les "selling plans" Shopify (app
-      Shopify Subscriptions ou équivalent). S'il n'y a pas de
-      selling plan, seule la carte "Achat unique" s'affiche.
+  Toutes les tailles / couleurs / arrondis sont pilotés par les
+  réglages du bloc (voir le schéma de la section).
 {%- endcomment -%}
 
 {%- liquid
   assign variant = product.selected_or_first_available_variant
 
-  comment
-    Option utilisée pour l'étape 1 (ex: "Foyer", "Taille"...).
-    Si le nom saisi dans les settings n'existe pas, on prend la 1ère option.
-  endcomment
   assign bundle_option = product.options_with_values.first
   assign option_index = 0
 
@@ -46,62 +40,94 @@
       endif
     endfor
   endif
+
+  # Valeurs par defaut des reglages de style
+  assign s_accent       = block.settings.accent_color | default: '#132a4a'
+  assign s_blue         = block.settings.highlight_color | default: '#2f7ff2'
+  assign s_reco_bg      = block.settings.reco_badge_background | default: '#d9f6e3'
+  assign s_reco_text    = block.settings.reco_badge_color | default: '#0f9d58'
+  assign s_border       = block.settings.border_color | default: '#e6e9ef'
+  assign s_radius       = block.settings.corner_radius | default: 14
+  assign s_step_size    = block.settings.step_title_size | default: 15
+  assign s_question     = block.settings.question_size | default: 15
+  assign s_pill         = block.settings.pill_size | default: 14
+  assign s_plan_title   = block.settings.plan_title_size | default: 15
+  assign s_price        = block.settings.price_size | default: 22
+  assign s_desc         = block.settings.description_size | default: 13
+  assign s_atc          = block.settings.atc_size | default: 16
 -%}
 
 <style>
-  .bundle-offer { --bo-navy: {{ block.settings.accent_color | default: '#132a4a' }}; --bo-blue: #2f7ff2; --bo-border: #e6e9ef; --bo-radius: 14px; display: block; border: 1px solid var(--bo-border); border-radius: var(--bo-radius); background: #fff; overflow: hidden; font-size: 0.9375rem; }
-  .bundle-offer * { box-sizing: border-box; }
-  .bundle-offer__step-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--bo-border); }
-  .bundle-offer__step-title { font-weight: 700; color: var(--bo-navy); }
-  .bundle-offer__step-count { font-size: 0.8125rem; color: #8a93a3; }
-  .bundle-offer__step-count--done { color: var(--bo-blue); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
-  .bundle-offer__step-count--done svg { width: 16px; height: 16px; }
+  #bundle-{{ block.id }} {
+    --bo-navy: {{ s_accent }};
+    --bo-blue: {{ s_blue }};
+    --bo-reco-bg: {{ s_reco_bg }};
+    --bo-reco-text: {{ s_reco_text }};
+    --bo-border: {{ s_border }};
+    --bo-radius: {{ s_radius }}px;
+    --bo-step-size: {{ s_step_size }}px;
+    --bo-question-size: {{ s_question }}px;
+    --bo-pill-size: {{ s_pill }}px;
+    --bo-plan-title-size: {{ s_plan_title }}px;
+    --bo-price-size: {{ s_price }}px;
+    --bo-desc-size: {{ s_desc }}px;
+    --bo-atc-size: {{ s_atc }}px;
+  }
 
-  .bundle-offer__body { padding: 16px 18px; }
-  .bundle-offer__question { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; color: #1c2434; margin-bottom: 12px; }
-  .bundle-offer__hint { font-size: 0.8125rem; color: #8a93a3; text-decoration: underline; cursor: help; }
+  #bundle-{{ block.id }}.bundle-offer { display: block; border: 1px solid var(--bo-border); border-radius: var(--bo-radius); background: #fff; overflow: hidden; }
+  #bundle-{{ block.id }} * { box-sizing: border-box; }
+  #bundle-{{ block.id }} .bundle-offer__step-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--bo-border); }
+  #bundle-{{ block.id }} .bundle-offer__step-title { font-weight: 700; color: var(--bo-navy); font-size: var(--bo-step-size); }
+  #bundle-{{ block.id }} .bundle-offer__step-count { font-size: calc(var(--bo-step-size) - 2px); color: #8a93a3; }
+  #bundle-{{ block.id }} .bundle-offer__step-count--done { color: var(--bo-blue); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+  #bundle-{{ block.id }} .bundle-offer__step-count--done svg { width: 16px; height: 16px; }
 
-  .bundle-offer__pills { display: flex; flex-wrap: wrap; gap: 10px; }
-  .bundle-offer__pill { appearance: none; cursor: pointer; border: 1px solid var(--bo-border); background: #fafbfc; color: #1c2434; border-radius: 10px; padding: 12px 18px; font-weight: 600; font-size: 0.875rem; transition: all .15s ease; }
-  .bundle-offer__pill:hover { border-color: var(--bo-navy); }
-  .bundle-offer__pill[aria-pressed="true"] { background: var(--bo-navy); border-color: var(--bo-navy); color: #fff; }
-  .bundle-offer__pill[disabled] { opacity: .4; cursor: not-allowed; }
+  #bundle-{{ block.id }} .bundle-offer__body { padding: 16px 18px; }
+  #bundle-{{ block.id }} .bundle-offer__question { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; color: #1c2434; margin-bottom: 12px; font-size: var(--bo-question-size); }
+  #bundle-{{ block.id }} .bundle-offer__hint { font-size: calc(var(--bo-question-size) - 2px); color: #8a93a3; text-decoration: underline; cursor: help; }
 
-  .bundle-offer__summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; background: #f7f8fa; border-bottom: 1px solid var(--bo-border); font-size: 0.875rem; color: #3a4356; }
-  .bundle-offer__summary strong { color: #1c2434; }
-  .bundle-offer__summary-edit { color: #8a93a3; text-decoration: underline; background: none; border: none; cursor: pointer; font-size: 0.8125rem; padding: 0; }
+  #bundle-{{ block.id }} .bundle-offer__pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  #bundle-{{ block.id }} .bundle-offer__pill { appearance: none; cursor: pointer; border: 1px solid var(--bo-border); background: #fafbfc; color: #1c2434; border-radius: 10px; padding: 12px 18px; font-weight: 600; font-size: var(--bo-pill-size); transition: all .15s ease; }
+  #bundle-{{ block.id }} .bundle-offer__pill:hover { border-color: var(--bo-navy); }
+  #bundle-{{ block.id }} .bundle-offer__pill[aria-pressed="true"] { background: var(--bo-navy); border-color: var(--bo-navy); color: #fff; }
+  #bundle-{{ block.id }} .bundle-offer__pill[disabled] { opacity: .4; cursor: not-allowed; }
 
-  .bundle-offer__plans { display: grid; gap: 12px; padding: 16px 18px; }
-  .bundle-offer__plans-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px 0; font-weight: 700; color: #1c2434; }
+  #bundle-{{ block.id }} .bundle-offer__summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; background: #f7f8fa; border-bottom: 1px solid var(--bo-border); font-size: var(--bo-desc-size); color: #3a4356; }
+  #bundle-{{ block.id }} .bundle-offer__summary strong { color: #1c2434; }
+  #bundle-{{ block.id }} .bundle-offer__summary-edit { color: #8a93a3; text-decoration: underline; background: none; border: none; cursor: pointer; font-size: var(--bo-desc-size); padding: 0; }
 
-  .bundle-offer__plan { position: relative; text-align: left; cursor: pointer; border: 1.5px solid var(--bo-border); border-radius: 12px; background: #fff; padding: 16px; transition: border-color .15s ease, box-shadow .15s ease; }
-  .bundle-offer__plan[aria-pressed="true"] { border-color: var(--bo-navy); box-shadow: 0 0 0 1px var(--bo-navy); }
-  .bundle-offer__plan-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
-  .bundle-offer__plan-title { font-weight: 700; color: #1c2434; }
+  #bundle-{{ block.id }} .bundle-offer__plans { display: grid; gap: 12px; padding: 16px 18px; }
+  #bundle-{{ block.id }} .bundle-offer__plans-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px 0; font-weight: 700; color: #1c2434; font-size: var(--bo-step-size); }
 
-  .bundle-offer__badge { display: inline-block; font-size: 0.6875rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; border-radius: 6px; padding: 4px 8px; white-space: nowrap; }
-  .bundle-offer__badge--reco { background: #d9f6e3; color: #0f9d58; }
-  .bundle-offer__badge--free { background: #e4edff; color: var(--bo-blue); margin-bottom: 8px; }
-  .bundle-offer__badge--discount { background: #e4edff; color: var(--bo-blue); border-radius: 4px; padding: 2px 6px; font-size: 0.75rem; text-transform: none; }
+  #bundle-{{ block.id }} .bundle-offer__plan { position: relative; text-align: left; cursor: pointer; border: 1.5px solid var(--bo-border); border-radius: 12px; background: #fff; padding: 16px; transition: border-color .15s ease, box-shadow .15s ease; }
+  #bundle-{{ block.id }} .bundle-offer__plan[aria-pressed="true"] { border-color: var(--bo-navy); box-shadow: 0 0 0 1px var(--bo-navy); }
+  #bundle-{{ block.id }} .bundle-offer__plan-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  #bundle-{{ block.id }} .bundle-offer__plan-title { font-weight: 700; color: #1c2434; font-size: var(--bo-plan-title-size); }
 
-  .bundle-offer__price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
-  .bundle-offer__price-compare { color: #a7aeba; text-decoration: line-through; font-size: 0.875rem; }
-  .bundle-offer__price { font-size: 1.375rem; font-weight: 800; color: #1c2434; }
-  .bundle-offer__price-frequency { color: #8a93a3; font-size: 0.8125rem; }
+  #bundle-{{ block.id }} .bundle-offer__badge { display: inline-block; font-size: calc(var(--bo-desc-size) - 2px); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; border-radius: 6px; padding: 4px 8px; white-space: nowrap; }
+  #bundle-{{ block.id }} .bundle-offer__badge--reco { background: var(--bo-reco-bg); color: var(--bo-reco-text); }
+  #bundle-{{ block.id }} .bundle-offer__badge--free { background: #e4edff; color: var(--bo-blue); margin-bottom: 8px; }
+  #bundle-{{ block.id }} .bundle-offer__badge--discount { background: #e4edff; color: var(--bo-blue); border-radius: 4px; padding: 2px 6px; font-size: calc(var(--bo-desc-size) - 1px); text-transform: none; letter-spacing: 0; }
 
-  .bundle-offer__plan-desc { color: #6b7382; font-size: 0.8125rem; line-height: 1.5; margin: 0 0 4px; }
-  .bundle-offer__plan-note { color: #3a4356; font-size: 0.8125rem; margin: 0; }
-  .bundle-offer__plan-perk { display: inline-flex; align-items: center; gap: 6px; color: var(--bo-blue); font-weight: 600; font-size: 0.8125rem; margin-top: 8px; }
-  .bundle-offer__plan-perk svg { width: 14px; height: 14px; }
+  #bundle-{{ block.id }} .bundle-offer__price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+  #bundle-{{ block.id }} .bundle-offer__price-compare { color: #a7aeba; text-decoration: line-through; font-size: var(--bo-desc-size); }
+  #bundle-{{ block.id }} .bundle-offer__price { font-size: var(--bo-price-size); font-weight: 800; color: #1c2434; }
+  #bundle-{{ block.id }} .bundle-offer__price-frequency { color: #8a93a3; font-size: var(--bo-desc-size); }
 
-  .bundle-offer__footer { padding: 14px 18px 18px; }
-  .bundle-offer__atc { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--bo-navy); color: #fff; border: none; border-radius: 999px; padding: 18px 24px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity .15s ease; }
-  .bundle-offer__atc:hover { opacity: .92; }
-  .bundle-offer__atc-compare { color: rgba(255,255,255,.55); text-decoration: line-through; font-weight: 500; font-size: 0.875rem; }
-  .bundle-offer__atc-dot { opacity: .5; }
+  #bundle-{{ block.id }} .bundle-offer__plan-desc { color: #6b7382; font-size: var(--bo-desc-size); line-height: 1.5; margin: 0 0 4px; }
+  #bundle-{{ block.id }} .bundle-offer__plan-note { color: #3a4356; font-size: var(--bo-desc-size); margin: 0; }
+  #bundle-{{ block.id }} .bundle-offer__plan-perk { display: inline-flex; align-items: center; gap: 6px; color: var(--bo-blue); font-weight: 600; font-size: var(--bo-desc-size); margin-top: 8px; }
+  #bundle-{{ block.id }} .bundle-offer__plan-perk svg { width: 14px; height: 14px; }
+
+  #bundle-{{ block.id }} .bundle-offer__footer { padding: 14px 18px 18px; }
+  #bundle-{{ block.id }} .bundle-offer__atc { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--bo-navy); color: #fff; border: none; border-radius: 999px; padding: 18px 24px; font-size: var(--bo-atc-size); font-weight: 700; cursor: pointer; transition: opacity .15s ease; }
+  #bundle-{{ block.id }} .bundle-offer__atc:hover { opacity: .92; }
+  #bundle-{{ block.id }} .bundle-offer__atc-compare { color: rgba(255,255,255,.55); text-decoration: line-through; font-weight: 500; font-size: calc(var(--bo-atc-size) - 3px); }
+  #bundle-{{ block.id }} .bundle-offer__atc-dot { opacity: .5; }
 </style>
 
 <bundle-offer
+  id="bundle-{{ block.id }}"
   class="bundle-offer"
   form="{{ product_form_id }}"
   option-index="{{ option_index }}"
@@ -241,7 +267,7 @@
   {%- if block.settings.show_atc_button -%}
     <div class="bundle-offer__footer">
       <button type="submit" form="{{ product_form_id }}" class="bundle-offer__atc" {% unless variant.available %}disabled{% endunless %}>
-        <span>{{ 'product.general.add_to_cart_button' | t | default: 'Ajouter au panier' }}</span>
+        <span>{{ block.settings.atc_label | default: 'Ajouter au panier' }}</span>
         <span class="bundle-offer__atc-dot">•</span>
         <span class="bundle-offer__atc-compare" data-atc-compare {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>{{ variant.compare_at_price | money }}</span>
         <span data-atc-price>{{ variant.price | money }}</span>
@@ -307,7 +333,6 @@
       selectValue(value) {
         this.selectedValue = value;
 
-        // Synchronise la variante avec le formulaire produit du thème
         const variant = this.variant;
         const form = document.getElementById(this.formId);
         const idInput =
@@ -334,21 +359,17 @@
         const variant = this.variant;
         const allocation = this.allocation;
 
-        // Pills
         this.querySelectorAll('[data-bundle-pill]').forEach((pill) => {
           pill.setAttribute('aria-pressed', pill.dataset.value === this.selectedValue ? 'true' : 'false');
         });
 
-        // Cartes de formule
         this.querySelectorAll('[data-bundle-plan]').forEach((card) => {
           card.setAttribute('aria-pressed', card.dataset.planType === this.planType ? 'true' : 'false');
         });
 
-        // Résumé
         const summary = this.querySelector('[data-bundle-summary]');
         if (summary) summary.textContent = this.selectedValue;
 
-        // Prix abonnement
         if (allocation) {
           const subPrice = this.querySelector('[data-sub-price]');
           const subCompare = this.querySelector('[data-sub-compare]');
@@ -367,7 +388,6 @@
           }
         }
 
-        // Prix achat unique
         const otpPrice = this.querySelector('[data-otp-price]');
         const otpCompare = this.querySelector('[data-otp-compare]');
         if (otpPrice) otpPrice.textContent = this.money(variant.price);
@@ -376,7 +396,6 @@
           if (variant.compare_at_price) otpCompare.textContent = this.money(variant.compare_at_price);
         }
 
-        // Bouton ajouter au panier
         const isSub = this.planType === 'subscription' && allocation;
         const finalPrice = isSub ? allocation.price : variant.price;
         const finalCompare = isSub ? (allocation.compare_at_price || variant.price) : variant.compare_at_price;
