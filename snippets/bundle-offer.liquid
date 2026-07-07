@@ -137,7 +137,34 @@
   {% if selling_plan %}selling-plan-id="{{ selling_plan.id }}" default-plan="subscription"{% else %}default-plan="one_time"{% endif %}
   {{ block.shopify_attributes }}
 >
-  <script type="application/json" data-bundle-product>{{ product | json }}</script>
+  {%- comment -%}
+    On construit nous-memes le JSON pour garantir la presence de "variants"
+    avec options / price / available / allocations d'abonnement.
+  {%- endcomment -%}
+  <script type="application/json" data-bundle-product>
+    {
+      "variants": [
+        {%- for v in product.variants -%}
+          {
+            "id": {{ v.id }},
+            "available": {{ v.available }},
+            "price": {{ v.price }},
+            "compare_at_price": {{ v.compare_at_price | default: 0 }},
+            "options": {{ v.options | json }},
+            "selling_plan_allocations": [
+              {%- for a in v.selling_plan_allocations -%}
+                {
+                  "selling_plan_id": {{ a.selling_plan.id }},
+                  "price": {{ a.price }},
+                  "compare_at_price": {{ a.compare_at_price | default: v.price }}
+                }{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            ]
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
 
   {%- comment -%} Input rattaché au formulaire produit du thème {%- endcomment -%}
   <input type="hidden" name="selling_plan" form="{{ product_form_id }}" value="{% if selling_plan %}{{ selling_plan.id }}{% endif %}">
@@ -341,7 +368,8 @@
       }
 
       get variant() {
-        const variants = this.product.variants;
+        const variants = (this.product && Array.isArray(this.product.variants)) ? this.product.variants : [];
+        if (!variants.length) return null;
         return (
           variants.find((v) => v.options[this.optionIndex] === this.selectedValue && v.available) ||
           variants.find((v) => v.options[this.optionIndex] === this.selectedValue) ||
@@ -352,6 +380,7 @@
       get allocation() {
         if (!this.sellingPlanId) return null;
         const v = this.variant;
+        if (!v) return null;
         return (v.selling_plan_allocations || []).find(
           (a) => String(a.selling_plan_id) === String(this.sellingPlanId)
         ) || null;
@@ -398,6 +427,9 @@
 
         const summary = this.querySelector('[data-bundle-summary]');
         if (summary) summary.textContent = this.selectedValue;
+
+        // Si aucune variante exploitable, on laisse les prix rendus par Liquid.
+        if (!variant) return;
 
         if (allocation) {
           const subPrice = this.querySelector('[data-sub-price]');
