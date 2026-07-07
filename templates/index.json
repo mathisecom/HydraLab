@@ -385,7 +385,7 @@
             "one_time_title": "Achat unique pour 3 mois",
             "one_time_subtitle": "Commande ponctuelle",
             "one_time_description": "Commandez une seule fois, sans engagement ni renouvellement automatique.",
-            "show_atc_button": true,
+            "show_atc_button": false,
             "atc_label": "Ajouter au panier",
             "perk_text": "Filtre OFFERT inclus",
             "accent_color": "#132a4a",
@@ -405,7 +405,6 @@
         },
         "buy_buttons_ECjbfQ": {
           "type": "buy_buttons",
-          "disabled": true,
           "settings": {
             "show_payment_button": false,
             "show_gift_card_recipient": false,
