@@ -1,0 +1,396 @@
+{%- comment -%}
+  snippets/bundle-offer.liquid
+  ----------------------------------------------------------------
+  Configurateur d'offre (style "bundle" en 2 étapes) :
+    Étape 1 : choix d'une valeur d'option (ex : Nombre de personnes)
+    Étape 2 : choix Abonnement (selling plan) vs Achat unique
+
+  Paramètres attendus :
+    - product          : le produit
+    - product_form_id  : l'id du formulaire produit
+    - block            : le block (pour les settings + shopify_attributes)
+
+  Pré-requis :
+    - L'abonnement utilise les "selling plans" Shopify (app
+      Shopify Subscriptions ou équivalent). S'il n'y a pas de
+      selling plan, seule la carte "Achat unique" s'affiche.
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+
+  comment
+    Option utilisée pour l'étape 1 (ex: "Foyer", "Taille"...).
+    Si le nom saisi dans les settings n'existe pas, on prend la 1ère option.
+  endcomment
+  assign bundle_option = product.options_with_values.first
+  assign option_index = 0
+
+  if block.settings.option_name != blank
+    for option in product.options_with_values
+      if option.name == block.settings.option_name
+        assign bundle_option = option
+        assign option_index = forloop.index0
+      endif
+    endfor
+  endif
+
+  assign selling_plan_group = product.selling_plan_groups.first
+  assign selling_plan = selling_plan_group.selling_plans.first
+
+  assign spa = nil
+  if selling_plan
+    for allocation in variant.selling_plan_allocations
+      if allocation.selling_plan.id == selling_plan.id
+        assign spa = allocation
+      endif
+    endfor
+  endif
+-%}
+
+<style>
+  .bundle-offer { --bo-navy: {{ block.settings.accent_color | default: '#132a4a' }}; --bo-blue: #2f7ff2; --bo-border: #e6e9ef; --bo-radius: 14px; display: block; border: 1px solid var(--bo-border); border-radius: var(--bo-radius); background: #fff; overflow: hidden; font-size: 0.9375rem; }
+  .bundle-offer * { box-sizing: border-box; }
+  .bundle-offer__step-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--bo-border); }
+  .bundle-offer__step-title { font-weight: 700; color: var(--bo-navy); }
+  .bundle-offer__step-count { font-size: 0.8125rem; color: #8a93a3; }
+  .bundle-offer__step-count--done { color: var(--bo-blue); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+  .bundle-offer__step-count--done svg { width: 16px; height: 16px; }
+
+  .bundle-offer__body { padding: 16px 18px; }
+  .bundle-offer__question { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; color: #1c2434; margin-bottom: 12px; }
+  .bundle-offer__hint { font-size: 0.8125rem; color: #8a93a3; text-decoration: underline; cursor: help; }
+
+  .bundle-offer__pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .bundle-offer__pill { appearance: none; cursor: pointer; border: 1px solid var(--bo-border); background: #fafbfc; color: #1c2434; border-radius: 10px; padding: 12px 18px; font-weight: 600; font-size: 0.875rem; transition: all .15s ease; }
+  .bundle-offer__pill:hover { border-color: var(--bo-navy); }
+  .bundle-offer__pill[aria-pressed="true"] { background: var(--bo-navy); border-color: var(--bo-navy); color: #fff; }
+  .bundle-offer__pill[disabled] { opacity: .4; cursor: not-allowed; }
+
+  .bundle-offer__summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; background: #f7f8fa; border-bottom: 1px solid var(--bo-border); font-size: 0.875rem; color: #3a4356; }
+  .bundle-offer__summary strong { color: #1c2434; }
+  .bundle-offer__summary-edit { color: #8a93a3; text-decoration: underline; background: none; border: none; cursor: pointer; font-size: 0.8125rem; padding: 0; }
+
+  .bundle-offer__plans { display: grid; gap: 12px; padding: 16px 18px; }
+  .bundle-offer__plans-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px 0; font-weight: 700; color: #1c2434; }
+
+  .bundle-offer__plan { position: relative; text-align: left; cursor: pointer; border: 1.5px solid var(--bo-border); border-radius: 12px; background: #fff; padding: 16px; transition: border-color .15s ease, box-shadow .15s ease; }
+  .bundle-offer__plan[aria-pressed="true"] { border-color: var(--bo-navy); box-shadow: 0 0 0 1px var(--bo-navy); }
+  .bundle-offer__plan-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  .bundle-offer__plan-title { font-weight: 700; color: #1c2434; }
+
+  .bundle-offer__badge { display: inline-block; font-size: 0.6875rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; border-radius: 6px; padding: 4px 8px; white-space: nowrap; }
+  .bundle-offer__badge--reco { background: #d9f6e3; color: #0f9d58; }
+  .bundle-offer__badge--free { background: #e4edff; color: var(--bo-blue); margin-bottom: 8px; }
+  .bundle-offer__badge--discount { background: #e4edff; color: var(--bo-blue); border-radius: 4px; padding: 2px 6px; font-size: 0.75rem; text-transform: none; }
+
+  .bundle-offer__price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+  .bundle-offer__price-compare { color: #a7aeba; text-decoration: line-through; font-size: 0.875rem; }
+  .bundle-offer__price { font-size: 1.375rem; font-weight: 800; color: #1c2434; }
+  .bundle-offer__price-frequency { color: #8a93a3; font-size: 0.8125rem; }
+
+  .bundle-offer__plan-desc { color: #6b7382; font-size: 0.8125rem; line-height: 1.5; margin: 0 0 4px; }
+  .bundle-offer__plan-note { color: #3a4356; font-size: 0.8125rem; margin: 0; }
+  .bundle-offer__plan-perk { display: inline-flex; align-items: center; gap: 6px; color: var(--bo-blue); font-weight: 600; font-size: 0.8125rem; margin-top: 8px; }
+  .bundle-offer__plan-perk svg { width: 14px; height: 14px; }
+
+  .bundle-offer__footer { padding: 14px 18px 18px; }
+  .bundle-offer__atc { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--bo-navy); color: #fff; border: none; border-radius: 999px; padding: 18px 24px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity .15s ease; }
+  .bundle-offer__atc:hover { opacity: .92; }
+  .bundle-offer__atc-compare { color: rgba(255,255,255,.55); text-decoration: line-through; font-weight: 500; font-size: 0.875rem; }
+  .bundle-offer__atc-dot { opacity: .5; }
+</style>
+
+<bundle-offer
+  class="bundle-offer"
+  form="{{ product_form_id }}"
+  option-index="{{ option_index }}"
+  selected-value="{{ variant.options[option_index] | escape }}"
+  currency="{{ cart.currency.iso_code }}"
+  locale="{{ request.locale.iso_code }}"
+  {% if selling_plan %}selling-plan-id="{{ selling_plan.id }}" default-plan="subscription"{% else %}default-plan="one_time"{% endif %}
+  {{ block.shopify_attributes }}
+>
+  <script type="application/json" data-bundle-product>{{ product | json }}</script>
+
+  {%- comment -%} Input rattaché au formulaire produit du thème {%- endcomment -%}
+  <input type="hidden" name="selling_plan" form="{{ product_form_id }}" value="{% if selling_plan %}{{ selling_plan.id }}{% endif %}">
+
+  {%- comment -%} ÉTAPE 1 {%- endcomment -%}
+  <div class="bundle-offer__step-header">
+    <span class="bundle-offer__step-title">{{ block.settings.step_1_title | default: 'Configurez votre offre :' }}</span>
+    <span class="bundle-offer__step-count" data-step1-state>étape 1/2</span>
+  </div>
+
+  <div class="bundle-offer__body">
+    <div class="bundle-offer__question">
+      <span>{{ block.settings.option_question | default: bundle_option.name }}</span>
+      {%- if block.settings.option_tooltip != blank -%}
+        <span class="bundle-offer__hint" title="{{ block.settings.option_tooltip | escape }}">Pourquoi ? &#9432;</span>
+      {%- endif -%}
+    </div>
+
+    <div class="bundle-offer__pills" role="group" aria-label="{{ bundle_option.name | escape }}">
+      {%- for value in bundle_option.values -%}
+        <button
+          type="button"
+          class="bundle-offer__pill"
+          data-bundle-pill
+          data-value="{{ value | escape }}"
+          aria-pressed="{% if value == variant.options[option_index] %}true{% else %}false{% endif %}"
+        >{{ value }}</button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} ÉTAPE 2 {%- endcomment -%}
+  <div class="bundle-offer__step-header">
+    <span class="bundle-offer__step-title">{{ block.settings.step_2_title | default: 'Personnalisez votre offre :' }}</span>
+    <span class="bundle-offer__step-count bundle-offer__step-count--done">
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      étape 2/2
+    </span>
+  </div>
+
+  <div class="bundle-offer__summary">
+    <span>{{ block.settings.summary_prefix | default: 'Sélection' }} : <strong data-bundle-summary>{{ variant.options[option_index] }}</strong></span>
+    <button type="button" class="bundle-offer__summary-edit" data-bundle-edit>Modifier</button>
+  </div>
+
+  <div class="bundle-offer__plans-title">
+    <span>{{ block.settings.plans_title | default: 'Choisissez votre formule :' }}</span>
+    {%- if block.settings.plans_tooltip != blank -%}
+      <span class="bundle-offer__hint" title="{{ block.settings.plans_tooltip | escape }}">Sans engagement &#9432;</span>
+    {%- endif -%}
+  </div>
+
+  <div class="bundle-offer__plans">
+    {%- if selling_plan -%}
+      <button
+        type="button"
+        class="bundle-offer__plan"
+        data-bundle-plan
+        data-plan-type="subscription"
+        data-plan-id="{{ selling_plan.id }}"
+        aria-pressed="true"
+      >
+        <div class="bundle-offer__plan-head">
+          <span class="bundle-offer__plan-title">{{ block.settings.subscription_title | default: selling_plan.name }}</span>
+          <span class="bundle-offer__badge bundle-offer__badge--reco">{{ block.settings.subscription_badge | default: 'Recommandé' }}</span>
+        </div>
+
+        {%- if block.settings.subscription_tag != blank -%}
+          <span class="bundle-offer__badge bundle-offer__badge--free">{{ block.settings.subscription_tag }}</span>
+        {%- endif -%}
+
+        <div class="bundle-offer__price-row">
+          <span class="bundle-offer__price-compare" data-sub-compare>{{ variant.price | money }}</span>
+          <span class="bundle-offer__price" data-sub-price>{{ spa.price | default: variant.price | money }}</span>
+          <span class="bundle-offer__badge bundle-offer__badge--discount" data-sub-discount hidden></span>
+          {%- if block.settings.subscription_frequency != blank -%}
+            <span class="bundle-offer__price-frequency">{{ block.settings.subscription_frequency }}</span>
+          {%- endif -%}
+        </div>
+
+        {%- if block.settings.subscription_description != blank -%}
+          <p class="bundle-offer__plan-desc">{{ block.settings.subscription_description }}</p>
+        {%- endif -%}
+        {%- if block.settings.subscription_note != blank -%}
+          <p class="bundle-offer__plan-note">{{ block.settings.subscription_note }}</p>
+        {%- endif -%}
+        {%- if block.settings.perk_text != blank -%}
+          <span class="bundle-offer__plan-perk">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {{ block.settings.perk_text }}
+          </span>
+        {%- endif -%}
+      </button>
+    {%- endif -%}
+
+    <button
+      type="button"
+      class="bundle-offer__plan"
+      data-bundle-plan
+      data-plan-type="one_time"
+      aria-pressed="{% unless selling_plan %}true{% else %}false{% endunless %}"
+    >
+      <div class="bundle-offer__plan-head">
+        <span class="bundle-offer__plan-title">{{ block.settings.one_time_title | default: 'Achat unique' }}</span>
+      </div>
+
+      <div class="bundle-offer__price-row">
+        <span class="bundle-offer__price-compare" data-otp-compare {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>{{ variant.compare_at_price | money }}</span>
+        <span class="bundle-offer__price" data-otp-price>{{ variant.price | money }}</span>
+      </div>
+
+      {%- if block.settings.one_time_subtitle != blank -%}
+        <p class="bundle-offer__plan-desc">{{ block.settings.one_time_subtitle }}</p>
+      {%- endif -%}
+      {%- if block.settings.one_time_description != blank -%}
+        <p class="bundle-offer__plan-note">{{ block.settings.one_time_description }}</p>
+      {%- endif -%}
+      {%- if block.settings.perk_text != blank -%}
+        <span class="bundle-offer__plan-perk">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {{ block.settings.perk_text }}
+        </span>
+      {%- endif -%}
+    </button>
+  </div>
+
+  {%- if block.settings.show_atc_button -%}
+    <div class="bundle-offer__footer">
+      <button type="submit" form="{{ product_form_id }}" class="bundle-offer__atc" {% unless variant.available %}disabled{% endunless %}>
+        <span>{{ 'product.general.add_to_cart_button' | t | default: 'Ajouter au panier' }}</span>
+        <span class="bundle-offer__atc-dot">•</span>
+        <span class="bundle-offer__atc-compare" data-atc-compare {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>{{ variant.compare_at_price | money }}</span>
+        <span data-atc-price>{{ variant.price | money }}</span>
+      </button>
+    </div>
+  {%- endif -%}
+</bundle-offer>
+
+<script>
+  (() => {
+    if (customElements.get('bundle-offer')) return;
+
+    class BundleOffer extends HTMLElement {
+      connectedCallback() {
+        this.product = JSON.parse(this.querySelector('[data-bundle-product]').textContent);
+        this.formId = this.getAttribute('form');
+        this.optionIndex = parseInt(this.getAttribute('option-index') || '0', 10);
+        this.sellingPlanId = this.getAttribute('selling-plan-id');
+        this.planType = this.getAttribute('default-plan') || 'one_time';
+        this.selectedValue = this.getAttribute('selected-value');
+
+        this.currency = this.getAttribute('currency') || 'EUR';
+        this.locale = this.getAttribute('locale') || document.documentElement.lang || 'fr';
+        this.formatter = new Intl.NumberFormat(this.locale, { style: 'currency', currency: this.currency });
+
+        this.sellingPlanInput = this.querySelector('input[name="selling_plan"]');
+
+        this.querySelectorAll('[data-bundle-pill]').forEach((pill) => {
+          pill.addEventListener('click', () => this.selectValue(pill.dataset.value));
+        });
+
+        this.querySelectorAll('[data-bundle-plan]').forEach((card) => {
+          card.addEventListener('click', () => this.selectPlan(card));
+        });
+
+        const edit = this.querySelector('[data-bundle-edit]');
+        if (edit) edit.addEventListener('click', () => this.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+
+        this.render();
+      }
+
+      money(cents) {
+        return this.formatter.format(cents / 100);
+      }
+
+      get variant() {
+        const variants = this.product.variants;
+        return (
+          variants.find((v) => v.options[this.optionIndex] === this.selectedValue && v.available) ||
+          variants.find((v) => v.options[this.optionIndex] === this.selectedValue) ||
+          variants[0]
+        );
+      }
+
+      get allocation() {
+        if (!this.sellingPlanId) return null;
+        const v = this.variant;
+        return (v.selling_plan_allocations || []).find(
+          (a) => String(a.selling_plan_id) === String(this.sellingPlanId)
+        ) || null;
+      }
+
+      selectValue(value) {
+        this.selectedValue = value;
+
+        // Synchronise la variante avec le formulaire produit du thème
+        const variant = this.variant;
+        const form = document.getElementById(this.formId);
+        const idInput =
+          (form && form.querySelector('input[name="id"], select[name="id"]')) ||
+          document.querySelector(`[form="${this.formId}"][name="id"]`);
+
+        if (idInput && variant) {
+          idInput.value = variant.id;
+          idInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+        this.render();
+      }
+
+      selectPlan(card) {
+        this.planType = card.dataset.planType;
+        if (this.sellingPlanInput) {
+          this.sellingPlanInput.value = this.planType === 'subscription' ? (card.dataset.planId || '') : '';
+        }
+        this.render();
+      }
+
+      render() {
+        const variant = this.variant;
+        const allocation = this.allocation;
+
+        // Pills
+        this.querySelectorAll('[data-bundle-pill]').forEach((pill) => {
+          pill.setAttribute('aria-pressed', pill.dataset.value === this.selectedValue ? 'true' : 'false');
+        });
+
+        // Cartes de formule
+        this.querySelectorAll('[data-bundle-plan]').forEach((card) => {
+          card.setAttribute('aria-pressed', card.dataset.planType === this.planType ? 'true' : 'false');
+        });
+
+        // Résumé
+        const summary = this.querySelector('[data-bundle-summary]');
+        if (summary) summary.textContent = this.selectedValue;
+
+        // Prix abonnement
+        if (allocation) {
+          const subPrice = this.querySelector('[data-sub-price]');
+          const subCompare = this.querySelector('[data-sub-compare]');
+          const subDiscount = this.querySelector('[data-sub-discount]');
+          const compareAt = allocation.compare_at_price || variant.price;
+
+          if (subPrice) subPrice.textContent = this.money(allocation.price);
+          if (subCompare) {
+            subCompare.textContent = this.money(compareAt);
+            subCompare.hidden = compareAt <= allocation.price;
+          }
+          if (subDiscount) {
+            const pct = Math.round((1 - allocation.price / compareAt) * 100);
+            subDiscount.hidden = pct <= 0;
+            subDiscount.textContent = `-${pct}%`;
+          }
+        }
+
+        // Prix achat unique
+        const otpPrice = this.querySelector('[data-otp-price]');
+        const otpCompare = this.querySelector('[data-otp-compare]');
+        if (otpPrice) otpPrice.textContent = this.money(variant.price);
+        if (otpCompare) {
+          otpCompare.hidden = !(variant.compare_at_price > variant.price);
+          if (variant.compare_at_price) otpCompare.textContent = this.money(variant.compare_at_price);
+        }
+
+        // Bouton ajouter au panier
+        const isSub = this.planType === 'subscription' && allocation;
+        const finalPrice = isSub ? allocation.price : variant.price;
+        const finalCompare = isSub ? (allocation.compare_at_price || variant.price) : variant.compare_at_price;
+
+        const atcPrice = this.querySelector('[data-atc-price]');
+        const atcCompare = this.querySelector('[data-atc-compare]');
+        if (atcPrice) atcPrice.textContent = this.money(finalPrice);
+        if (atcCompare) {
+          atcCompare.hidden = !(finalCompare > finalPrice);
+          if (finalCompare) atcCompare.textContent = this.money(finalCompare);
+        }
+      }
+    }
+
+    customElements.define('bundle-offer', BundleOffer);
+  })();
+</script>
