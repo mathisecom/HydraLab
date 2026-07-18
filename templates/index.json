@@ -342,7 +342,6 @@
         },
         "price_6TWJwE": {
           "type": "price",
-          "disabled": true,
           "settings": {
             "show_taxes_notice": false
           }
@@ -367,6 +366,7 @@
         },
         "bundle_offer_4K4Umf": {
           "type": "bundle_offer",
+          "disabled": true,
           "settings": {
             "option_name": "",
             "step_1_title": "Configurez votre offre :",
