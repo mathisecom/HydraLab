@@ -265,7 +265,10 @@
       .hloffer__check { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
       .hloffer__check-icon { color: #0f9d58; font-weight: 800; }
       .hloffer__cta {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
         width: 100%;
         border: none;
         border-radius: 10px;
@@ -279,6 +282,7 @@
         transition: opacity 0.15s ease;
       }
       .hloffer__cta:hover { opacity: 0.92; }
+      .hloffer__cta-icon { flex-shrink: 0; }
       .hloffer__installments { margin: 8px 0 0; text-align: center; font-size: 12.5px; color: rgba(8, 22, 61, 0.55); }
       .hloffer__guarantee {
         display: flex;
@@ -390,7 +394,14 @@
           <div class="hloffer__check"><span class="hloffer__check-icon">✓</span><span>Livraison offerte · Garantie 30 jours</span></div>
         </div>
 
-        <button type="button" class="hloffer__cta" id="hloffer-cta-{{ section.id }}">Je révèle ma peau</button>
+        <button type="button" class="hloffer__cta" id="hloffer-cta-{{ section.id }}">
+          <svg class="hloffer__cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.8h7.9a2 2 0 0 0 2-1.6L21 8H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="10" cy="20.5" r="1.5" fill="currentColor"/>
+            <circle cx="17.5" cy="20.5" r="1.5" fill="currentColor"/>
+          </svg>
+          <span>Je révèle ma peau</span>
+        </button>
 
         <p class="hloffer__installments" id="hloffer-installments-{{ section.id }}">
           {%- assign hl_third = hl_product.selected_or_first_available_variant.price | divided_by: 3 -%}
