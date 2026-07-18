@@ -153,6 +153,381 @@
       {%- endif -%}
     </div>
   </product-rerender>
+
+  {%- comment -%}
+    ============================================================
+    HYDRALAB — OFFRE ACHAT UNIQUE + RECADRAGE PRIX + AVERSION PERTE
+    Intégré directement dans la section. Le bloc est généré ici puis
+    déplacé en JS dans la colonne produit, à la place du bloc Prix.
+    Le prix, le variant picker et le bouton "Ajouter au panier" du
+    thème sont masqués automatiquement (le CTA "Je révèle ma peau"
+    soumet le même formulaire).
+
+    PRÉREQUIS ADMIN : option "Nombre de robinets" avec 2 variantes :
+      - "1 robinet"  → 79,90 €  (prix comparé 89,90 €)
+      - "2 robinets" → 143,80 € (prix comparé 159,80 €)
+    Les prix sont lus automatiquement depuis les variantes.
+    Désactivable via le réglage "Afficher l'offre HydraLab" de la section.
+    ============================================================
+  {%- endcomment -%}
+
+  {%- if section.settings.product != blank and section.settings.show_hydralab_offer -%}
+    {%- assign hl_product = section.settings.product -%}
+
+    <style>
+      /* Masque le prix, le variant picker et le bouton ATC du thème */
+      #shopify-section-{{ section.id }} .product-info__block-item[data-block-type="price"],
+      #shopify-section-{{ section.id }} .product-info__block-item[data-block-type="variant-picker"],
+      #shopify-section-{{ section.id }} .product-info__block-item[data-block-type="quantity-selector"] {
+        display: none !important;
+      }
+      #shopify-section-{{ section.id }} .product-info__block-item[data-block-type="buy-buttons"] {
+        position: absolute !important;
+        width: 1px; height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
+      .hloffer {
+        font-family: inherit;
+        color: #08163D;
+        margin: 4px 0 10px;
+      }
+      .hloffer__title { margin: 0; font-size: 20px; font-weight: 800; line-height: 1.15; }
+      .hloffer__subtitle { margin: 3px 0 14px; font-size: 13.5px; color: rgba(8, 22, 61, 0.65); }
+      .hloffer__question { margin: 0 0 8px; font-size: 14px; font-weight: 700; }
+      .hloffer__options { display: flex; flex-direction: column; gap: 8px; margin: 0 0 12px; }
+      .hloffer__option {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border: 1.5px solid #e6e9ef;
+        border-radius: 12px;
+        background: #ffffff;
+        cursor: pointer;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      .hloffer__option:hover { border-color: #b9c6da; }
+      .hloffer__option input { position: absolute; opacity: 0; pointer-events: none; }
+      .hloffer__option.is-selected { border-color: #2F7FF2; box-shadow: 0 0 0 1px #2F7FF2; background: #fdfeff; }
+      .hloffer__radio {
+        width: 18px; height: 18px; min-width: 18px;
+        border: 2px solid #cfd6e0;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.15s ease;
+      }
+      .hloffer__option.is-selected .hloffer__radio { border-color: #2F7FF2; }
+      .hloffer__radio::after {
+        content: "";
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #2F7FF2;
+        transform: scale(0);
+        transition: transform 0.15s ease;
+      }
+      .hloffer__option.is-selected .hloffer__radio::after { transform: scale(1); }
+      .hloffer__option-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+      .hloffer__option-name { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; line-height: 1.2; }
+      .hloffer__badge {
+        font-size: 11px; font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: #dbe9ff;
+        color: #2F7FF2;
+        white-space: nowrap;
+      }
+      .hloffer__option-desc { margin: 2px 0 0; font-size: 12.5px; color: rgba(8, 22, 61, 0.6); }
+      .hloffer__option-right { text-align: right; white-space: nowrap; }
+      .hloffer__compare { display: block; font-size: 12.5px; color: rgba(8, 22, 61, 0.45); text-decoration: line-through; }
+      .hloffer__price { display: block; font-size: 18px; font-weight: 800; line-height: 1.15; }
+      .hloffer__savings { display: block; font-size: 12px; font-weight: 700; color: #0f9d58; }
+      .hloffer__banner {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #dbe9ff;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1d4ed8;
+        margin: 0 0 14px;
+        line-height: 1.35;
+      }
+      .hloffer__banner svg { flex-shrink: 0; }
+      .hloffer__checks { display: flex; flex-direction: column; gap: 7px; margin: 0 0 14px; }
+      .hloffer__check { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+      .hloffer__check-icon { color: #0f9d58; font-weight: 800; }
+      .hloffer__cta {
+        display: block;
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        background: #08163D;
+        color: #ffffff;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 16px 20px;
+        cursor: pointer;
+        transition: opacity 0.15s ease;
+      }
+      .hloffer__cta:hover { opacity: 0.92; }
+      .hloffer__installments { margin: 8px 0 0; text-align: center; font-size: 12.5px; color: rgba(8, 22, 61, 0.55); }
+      .hloffer__guarantee {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin: 14px 0 0;
+        font-size: 12.5px;
+        line-height: 1.45;
+        color: rgba(8, 22, 61, 0.75);
+      }
+      .hloffer__guarantee svg { flex-shrink: 0; margin-top: 1px; }
+      .hydralab-reframe {
+        background: #F3F7FB;
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin: 14px 0 8px;
+        font-family: inherit;
+        color: #08163D;
+      }
+      .hydralab-reframe__title { margin: 0 0 10px; font-size: 13.5px; font-weight: 700; }
+      .hydralab-reframe__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        padding: 5px 0;
+        border-bottom: 1px dashed rgba(8, 22, 61, 0.12);
+      }
+      .hydralab-reframe__row:last-of-type { border-bottom: none; }
+      .hydralab-reframe__row--highlight { font-weight: 700; }
+      .hydralab-reframe__row--highlight .hydralab-reframe__duration { color: #2F7FF2; }
+      .hydralab-reframe__duration { font-weight: 700; white-space: nowrap; }
+      .hydralab-reframe__note { margin: 10px 0 0; font-size: 12.5px; line-height: 1.4; color: rgba(8, 22, 61, 0.75); }
+      .hydralab-loss {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 8px 0 4px;
+        font-family: inherit;
+        font-size: 12.5px;
+        line-height: 1.35;
+        color: #08163D;
+      }
+      .hydralab-loss__icon { flex-shrink: 0; font-size: 14px; line-height: 1; }
+      .hydralab-loss em { font-style: normal; font-weight: 700; }
+      @media screen and (max-width: 749px) {
+        .hloffer__title { font-size: 18px; }
+        .hloffer__option { padding: 12px 13px; }
+        .hloffer__price { font-size: 17px; }
+        .hydralab-reframe { padding: 12px 14px; }
+        .hydralab-reframe__row { font-size: 12px; }
+      }
+    </style>
+
+    <div id="hloffer-wrapper-{{ section.id }}" hidden>
+      <div class="hloffer" id="hloffer-{{ section.id }}">
+        <h3 class="hloffer__title">Le pack HydraLab</h3>
+        <p class="hloffer__subtitle">Une eau pure pour ta peau et ton corps</p>
+
+        <p class="hloffer__question">Combien de robinets veux-tu équiper ?</p>
+
+        <div class="hloffer__options" role="radiogroup" aria-label="Nombre de robinets">
+          {%- for variant in hl_product.variants -%}
+            {%- assign is_selected = false -%}
+            {%- if variant.id == hl_product.selected_or_first_available_variant.id -%}
+              {%- assign is_selected = true -%}
+            {%- endif -%}
+            <label class="hloffer__option {% if is_selected %}is-selected{% endif %}" data-variant-id="{{ variant.id }}" data-price-cents="{{ variant.price }}">
+              <input type="radio" name="hloffer-variant-{{ section.id }}" value="{{ variant.id }}" {% if is_selected %}checked{% endif %}>
+              <span class="hloffer__option-left">
+                <span class="hloffer__radio" aria-hidden="true"></span>
+                <span>
+                  <span class="hloffer__option-name">
+                    {{ variant.title }}
+                    {%- if variant.title contains '2' -%}
+                      <span class="hloffer__badge">le plus choisi</span>
+                    {%- endif -%}
+                  </span>
+                  <span class="hloffer__option-desc">
+                    {%- if variant.title contains '2' -%}cuisine + salle de bain{%- else -%}cuisine ou salle de bain{%- endif -%}
+                  </span>
+                </span>
+              </span>
+              <span class="hloffer__option-right">
+                {%- if variant.compare_at_price > variant.price -%}
+                  <span class="hloffer__compare">{{ variant.compare_at_price | money }}</span>
+                {%- endif -%}
+                <span class="hloffer__price">{{ variant.price | money }}</span>
+                {%- if variant.compare_at_price > variant.price -%}
+                  {%- assign hl_savings = variant.compare_at_price | minus: variant.price -%}
+                  <span class="hloffer__savings">tu économises {{ hl_savings | money }}</span>
+                {%- endif -%}
+              </span>
+            </label>
+          {%- endfor -%}
+        </div>
+
+        <div class="hloffer__banner">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+            <path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>4 cartouches incluses = jusqu'à 16 mois d'eau pure — <strong>moins de 5 € par mois</strong></span>
+        </div>
+
+        <div class="hloffer__checks">
+          <div class="hloffer__check"><span class="hloffer__check-icon">✓</span><span>99 % du chlore filtré — certifié NSF 42 &amp; 372</span></div>
+          <div class="hloffer__check"><span class="hloffer__check-icon">✓</span><span>S'installe en 2 min, sans plombier</span></div>
+          <div class="hloffer__check"><span class="hloffer__check-icon">✓</span><span>Livraison offerte · Garantie 30 jours</span></div>
+        </div>
+
+        <button type="button" class="hloffer__cta" id="hloffer-cta-{{ section.id }}">Je révèle ma peau</button>
+
+        <p class="hloffer__installments" id="hloffer-installments-{{ section.id }}">
+          {%- assign hl_third = hl_product.selected_or_first_available_variant.price | divided_by: 3 -%}
+          ou 3× {{ hl_third | money }} sans frais
+        </p>
+
+        <div class="hloffer__guarantee">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span>Teste-le 30 jours. Si ta peau ne te dit pas merci, on te rembourse. Tu ne prends aucun risque — c'est nous qui le prenons.</span>
+        </div>
+
+        <div class="hydralab-loss">
+          <span class="hydralab-loss__icon">⚠️</span>
+          <span>Chaque lavage sans filtre, le chlore continue d'<em>attaquer ta barrière cutanée</em>.</span>
+        </div>
+
+        <div class="hydralab-reframe">
+          <p class="hydralab-reframe__title">Le calcul est vite fait 👇</p>
+          <div class="hydralab-reframe__row">
+            <span>Un sérum : ~60 €</span>
+            <span class="hydralab-reframe__duration">→ 2 mois</span>
+          </div>
+          <div class="hydralab-reframe__row">
+            <span>Une crème : ~50 €</span>
+            <span class="hydralab-reframe__duration">→ 3 mois</span>
+          </div>
+          <div class="hydralab-reframe__row hydralab-reframe__row--highlight">
+            <span>Le pack HydraLab : 79,90 €</span>
+            <span class="hydralab-reframe__duration">→ 16 mois</span>
+          </div>
+          <p class="hydralab-reframe__note">Et contrairement à eux, il rend <strong>tous tes autres soins plus efficaces</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var SECTION_ID = '{{ section.id }}';
+        var sectionEl = document.getElementById('shopify-section-' + SECTION_ID);
+        if (!sectionEl) return;
+
+        var wrapper = document.getElementById('hloffer-wrapper-' + SECTION_ID);
+        var offer = document.getElementById('hloffer-' + SECTION_ID);
+        if (!wrapper || !offer) return;
+
+        function getForm() {
+          return sectionEl.querySelector('form[is="product-form"]') || document.getElementById('featured-product-form-' + SECTION_ID);
+        }
+
+        function formatMoney(cents) {
+          return (cents / 100).toFixed(2).replace('.', ',') + ' €';
+        }
+
+        /* ── Déplace l'offre dans la colonne produit, à la place du prix ── */
+        function placeOffer() {
+          var column = sectionEl.querySelector('safe-sticky.product-info') || sectionEl.querySelector('.product-info');
+          if (!column || column.contains(offer)) return;
+
+          var priceBlock = column.querySelector('.product-info__block-item[data-block-type="price"]');
+          var buyBlock = column.querySelector('.product-info__block-item[data-block-type="buy-buttons"]');
+
+          if (priceBlock && priceBlock.parentNode) {
+            priceBlock.parentNode.insertBefore(offer, priceBlock.nextSibling);
+          } else if (buyBlock && buyBlock.parentNode) {
+            buyBlock.parentNode.insertBefore(offer, buyBlock);
+          } else {
+            column.appendChild(offer);
+          }
+        }
+
+        function selectOption(option) {
+          var options = offer.querySelectorAll('.hloffer__option');
+          options.forEach(function (o) {
+            o.classList.remove('is-selected');
+            var input = o.querySelector('input');
+            if (input) input.checked = false;
+          });
+          option.classList.add('is-selected');
+          var radio = option.querySelector('input');
+          if (radio) radio.checked = true;
+
+          /* Synchronise la variante avec le formulaire du thème
+             (sans déclencher le re-render pour garder le bloc en place) */
+          var form = getForm();
+          if (form) {
+            var idInput = form.querySelector('input[name="id"]');
+            if (idInput) idInput.value = option.dataset.variantId;
+          }
+
+          /* Met à jour le 3x sans frais */
+          var installments = document.getElementById('hloffer-installments-' + SECTION_ID);
+          if (installments && option.dataset.priceCents) {
+            var third = Math.round(parseInt(option.dataset.priceCents, 10) / 3);
+            installments.textContent = 'ou 3× ' + formatMoney(third) + ' sans frais';
+          }
+        }
+
+        offer.querySelectorAll('.hloffer__option').forEach(function (option) {
+          option.addEventListener('click', function () { selectOption(option); });
+        });
+
+        var cta = document.getElementById('hloffer-cta-' + SECTION_ID);
+        if (cta) {
+          cta.addEventListener('click', function () {
+            var form = getForm();
+            if (!form) return;
+            if (typeof form.requestSubmit === 'function') { form.requestSubmit(); }
+            else { form.submit(); }
+          });
+        }
+
+        function init() {
+          placeOffer();
+          wrapper.removeAttribute('hidden');
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+
+        /* Sécurité : si le thème re-render la colonne produit (changement de
+           variante, éditeur de thème...), on replace l'offre automatiquement */
+        var observer = new MutationObserver(function () {
+          if (!sectionEl.contains(offer) || offer.closest('#hloffer-wrapper-' + SECTION_ID)) {
+            placeOffer();
+          } else if (!offer.isConnected) {
+            placeOffer();
+          }
+        });
+        observer.observe(sectionEl, { childList: true, subtree: true });
+      })();
+    </script>
+  {%- endif -%}
 </div>
 
 {% schema %}
@@ -1982,6 +2357,17 @@
       "type": "product",
       "id": "product",
       "label": "Product"
+    },
+    {
+      "type": "header",
+      "content": "Offre HydraLab"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hydralab_offer",
+      "label": "Afficher l'offre HydraLab (achat unique par robinets)",
+      "info": "Remplace le prix, le variant picker et le bouton Ajouter au panier du thème par le bloc offre. Nécessite des variantes « 1 robinet » / « 2 robinets ».",
+      "default": true
     },
     {
       "type": "header",
