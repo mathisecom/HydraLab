@@ -492,6 +492,7 @@
       "settings": {
         "full_width": true,
         "product": "filtre-hydralab",
+        "show_hydralab_offer": true,
         "desktop_media_width": 45,
         "desktop_media_layout": "carousel_thumbnails_left",
         "mobile_media_size": "contained",
