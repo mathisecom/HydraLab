@@ -908,6 +908,7 @@
         "stat_Qhkfqf",
         "stat_edBNxq"
       ],
+      "disabled": true,
       "name": "HydraLab données produit",
       "settings": {
         "main_image": "shopify://shop_images/AF7819C0-7549-4356-864A-3384F1D93E34.webp",
@@ -1041,6 +1042,7 @@
         "row_GP7gVt",
         "row_XKHUjF"
       ],
+      "disabled": true,
       "name": "HydraLab comparaison",
       "settings": {
         "badge_text": "Comparaison HydraLab",
@@ -1138,6 +1140,7 @@
         "benefit_Vp9iWr",
         "benefit_nLF7Nd"
       ],
+      "disabled": true,
       "name": "HydraLab bénéfices",
       "settings": {
         "background_image": "shopify://shop_images/DTS_Parenthood_Daniel_Faro_Photos_ID6941.webp",
@@ -1274,6 +1277,7 @@
         "contaminant_mDxgYz",
         "contaminant_mtwp4F"
       ],
+      "disabled": true,
       "name": "HydraLab filtration liste",
       "settings": {
         "product_image": "shopify://shop_images/ChatGPT_Image_2_juil._2026_12_09_51.png",
@@ -1387,6 +1391,7 @@
         "layer_zRnjbK",
         "layer_VCBxnt"
       ],
+      "disabled": true,
       "name": "HydraLab couches filtration",
       "settings": {
         "badge_text": "Que contiennent nos cartouches ?",
