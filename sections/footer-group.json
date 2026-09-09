@@ -92,7 +92,8 @@
         "newsletter": {
           "type": "newsletter",
           "settings": {
-            "image_width": 170,
+            "image": "shopify://shop_images/ChatGPT_Image_9_sept._2026_13_15_11.png",
+            "image_width": 140,
             "heading_size": "h4",
             "title": "Une eau (vraiment) pure. Simplement.",
             "content": "<p>Recevez des offres exclusives, des mises à jour sur la qualité de l'eau dans votre région, et plus encore en vous inscrivant à notre newsletter</p>"
