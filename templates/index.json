@@ -1604,6 +1604,7 @@
         "benefit_APU3mP",
         "benefit_W7TYBW"
       ],
+      "disabled": true,
       "name": "Pureva FAQ",
       "settings": {
         "heading": "F.A.Q",
