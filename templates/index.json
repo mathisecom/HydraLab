@@ -73,7 +73,7 @@
       ],
       "name": "Hero nutrition moderne",
       "settings": {
-        "main_image": "shopify://shop_images/77e6831b-8a06-4532-bc13-cd5af02c7be9.png",
+        "main_image": "shopify://shop_images/e402dc57-be94-48ac-87ae-bc3a4e812706.png",
         "image_fit": "cover",
         "image_position": "center center",
         "image_ratio": 125,
@@ -225,7 +225,7 @@
       ],
       "name": "Pureva barre statistiques",
       "settings": {
-        "section_background": "#2386CC",
+        "section_background": "#2386cc",
         "text_color": "#ffffff",
         "muted_text_color": "#b9c8e0",
         "divider_color": "#ffffff",
