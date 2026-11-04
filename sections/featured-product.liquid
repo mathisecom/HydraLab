@@ -403,11 +403,6 @@
           <span>Je révèle ma peau</span>
         </button>
 
-        <p class="hloffer__installments" id="hloffer-installments-{{ section.id }}">
-          {%- assign hl_third = hl_product.selected_or_first_available_variant.price | divided_by: 3 -%}
-          ou 3× {{ hl_third | money }} sans frais
-        </p>
-
         <div class="hloffer__guarantee">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
