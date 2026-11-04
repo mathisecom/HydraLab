@@ -66,7 +66,9 @@ Supported variables
             {%- if show_on_sale_badge -%}
               <on-sale-badge class="badge badge--on-sale">
                 {%- liquid
-                  if context == 'product'
+                  if context == 'product' and product.handle == 'filtre-hydralab'
+                    echo '16 mois inclus'
+                  elsif context == 'product'
                     echo 'product.general.discount_badge_html' | t: savings: savings
                   elsif context == 'card'
                     if product.compare_at_price_varies or variant.compare_at_price == blank

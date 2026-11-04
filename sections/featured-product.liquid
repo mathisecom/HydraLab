@@ -339,7 +339,7 @@
 
     <div id="hloffer-wrapper-{{ section.id }}" hidden>
       <div class="hloffer" id="hloffer-{{ section.id }}">
-        <h3 class="hloffer__title">Le pack HydraLab</h3>
+        <h3 class="hloffer__title">Le Programme Eau Pure – 16 mois</h3>
         <p class="hloffer__subtitle">Une eau pure pour ta peau et ton corps</p>
 
         <p class="hloffer__question">Combien de robinets veux-tu équiper ?</p>
@@ -371,9 +371,15 @@
                   <span class="hloffer__compare">{{ variant.compare_at_price | money }}</span>
                 {%- endif -%}
                 <span class="hloffer__price">{{ variant.price | money }}</span>
-                {%- if variant.compare_at_price > variant.price -%}
-                  {%- assign hl_savings = variant.compare_at_price | minus: variant.price -%}
-                  <span class="hloffer__savings">tu économises {{ hl_savings | money }}</span>
+                {%- comment -%}Valeur perçue : prix par jour (16 mois ≈ 480 jours) ou remise sur le 2e robinet, calculés depuis les prix réels{%- endcomment -%}
+                {%- assign hl_first_price = hl_product.variants.first.price -%}
+                {%- assign hl_second_unit = variant.price | minus: hl_first_price -%}
+                {%- if variant.title contains '2' and hl_second_unit > 0 and hl_second_unit < hl_first_price -%}
+                  {%- assign hl_second_pct = hl_first_price | minus: hl_second_unit | times: 100.0 | divided_by: hl_first_price | round -%}
+                  <span class="hloffer__savings">2ᵉ robinet -{{ hl_second_pct }} %</span>
+                {%- else -%}
+                  {%- assign hl_per_day = variant.price | divided_by: 480.0 | round -%}
+                  <span class="hloffer__savings">16 mois inclus · {{ hl_per_day | money }}/jour</span>
                 {%- endif -%}
               </span>
             </label>
@@ -407,29 +413,31 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
           </svg>
-          <span>Teste-le 30 jours. Si ta peau ne te dit pas merci, on te rembourse. Tu ne prends aucun risque — c'est nous qui le prenons.</span>
+          <span><strong>Garantie Peau 30 jours</strong> : si ta peau ne te dit pas merci, on te rembourse. Tu ne prends aucun risque — c'est nous qui le prenons.</span>
         </div>
 
         <div class="hydralab-loss">
           <span class="hydralab-loss__icon">⚠️</span>
-          <span>Chaque lavage sans filtre, le chlore continue d'<em>attaquer ta barrière cutanée</em>.</span>
+          <span>À chaque douche sans filtre, ta peau est exposée au <em>chlore de l'eau du robinet</em>.</span>
         </div>
 
+        {%- assign hl_base_price = hl_product.variants.first.price -%}
+        {%- assign hl_base_day = hl_base_price | divided_by: 480.0 | round -%}
         <div class="hydralab-reframe">
-          <p class="hydralab-reframe__title">Le calcul est vite fait 👇</p>
+          <p class="hydralab-reframe__title">Sur 16 mois, voilà ce que tu dépenses 👇</p>
           <div class="hydralab-reframe__row">
-            <span>Un sérum : ~60 €</span>
-            <span class="hydralab-reframe__duration">→ 2 mois</span>
+            <span>Sérums (~60 € tous les 2 mois)</span>
+            <span class="hydralab-reframe__duration">~480 €</span>
           </div>
           <div class="hydralab-reframe__row">
-            <span>Une crème : ~50 €</span>
-            <span class="hydralab-reframe__duration">→ 3 mois</span>
+            <span>Crèmes (~50 € tous les 3 mois)</span>
+            <span class="hydralab-reframe__duration">~265 €</span>
           </div>
           <div class="hydralab-reframe__row hydralab-reframe__row--highlight">
-            <span>Le pack HydraLab : 79,90 €</span>
-            <span class="hydralab-reframe__duration">→ 16 mois</span>
+            <span>HydraLab (16 mois)</span>
+            <span class="hydralab-reframe__duration">{{ hl_base_price | money }}</span>
           </div>
-          <p class="hydralab-reframe__note">Et contrairement à eux, il rend <strong>tous tes autres soins plus efficaces</strong>.</p>
+          <p class="hydralab-reframe__note"><strong>Soit {{ hl_base_day | money }} par jour</strong> — à peine plus qu'un seul sérum, pour 16 mois d'eau pure sur ta peau. Le filtre ne remplace pas tes soins : il protège ta peau <strong>avant</strong> eux.</p>
         </div>
       </div>
     </div>
